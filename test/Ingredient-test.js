@@ -3,7 +3,7 @@ const expect = chai.expect;
 const Ingredient = require('../src/Ingredient');
 
 describe('Ingredient class', () => {
-  let ingredient, creamer, coffee;
+  let ingredient, creamer, coffeeBeans;
   beforeEach( () => {
     ingredient = new Ingredient();
     creamer = {id: 624, name: 'creamer', estimatedCostInCents: 240};
@@ -39,9 +39,32 @@ describe('Ingredient class', () => {
 
   describe('methods', () => {
 
+    it('should return 0 at cost if there\'s no recipe', () => {
+      const cost = ingredient.calculateCost();
+
+      expect(cost).to.equal(0);
+    })
+
     it('should calculate a cost', () => {
       ingredient = new Ingredient([creamer]);
-      const recipe1 = [{id: 624, quantity: {amount: 4}}];
+      const recipe1 = {
+        id: 123, 
+        img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
+        ingredients: [
+          {
+            id: 624, 
+            quantity: {
+            amount: 4, 
+            unit: 'tsp'
+            }
+          }
+        ],
+        instruction: [
+          {instruction: 'step 1'}, 
+          {instruction: 'step 2'},
+          {instruction: 'step 3'}
+        ]
+      };
 
       let totalCost = ingredient.calculateCost(recipe1);
 
@@ -50,7 +73,29 @@ describe('Ingredient class', () => {
   
     it('should calculate more cost', () => {
       ingredient = new Ingredient([creamer, coffeeBeans]);
-      const recipe2 = [{id: 624, quantity: {amount: 2}},{id: 642, quantity: {amount: 8}}];
+      const recipe2 = {
+        id: 456, 
+        img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
+        ingredients: [
+          {id: 624, 
+            quantity: {
+              amount: 2, 
+              unit: 'tsp'
+            }
+          }, 
+          {id: 642, 
+            quantity: {
+              amount: 8, 
+              unit: 'tsp'
+            }
+          }
+        ],
+        instruction: [
+          {instruction: 'step 1'}, 
+          {instruction: 'step 2'},
+          {instruction: 'step 3'}
+        ]
+      };
 
       let totalCost = ingredient.calculateCost(recipe2);
 
