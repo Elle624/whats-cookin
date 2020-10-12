@@ -63,7 +63,9 @@ describe('Ingredient class', () => {
           {instruction: 'step 1'}, 
           {instruction: 'step 2'},
           {instruction: 'step 3'}
-        ]
+        ],
+        name: 'creamer',
+        tags: ['add on']
       };
 
       let totalCost = ingredient.calculateCost(recipe1);
@@ -94,7 +96,9 @@ describe('Ingredient class', () => {
           {instruction: 'step 1'}, 
           {instruction: 'step 2'},
           {instruction: 'step 3'}
-        ]
+        ],
+        name: 'coffee',
+        tags: ['beverage', 'drink']
       };
 
       let totalCost = ingredient.calculateCost(recipe2);
