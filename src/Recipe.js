@@ -19,7 +19,6 @@ class Recipe {
       return recipe.ingredients.find(ingred => ingred.id === id);
     })
     return searchingByIngredient;
-
   }
 }
 module.exports = Recipe;

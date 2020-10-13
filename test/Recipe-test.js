@@ -34,7 +34,7 @@ describe('Recipe class', () => {
       tags: ['sweet', 'desert']
     };
     beefNoodle = {
-      id: 1, 
+      id: 2, 
       img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
       ingredients: [
         {
