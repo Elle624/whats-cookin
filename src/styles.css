@@ -19,15 +19,17 @@ body {
 }
 
 .nav-buttons {
-  background-color: #ff9966;
+  background-color: #f3a781;
     border: 1px;
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
 }
 
-.nav-buttons button:hover {
-  background: #fff;
+.nav-buttons:hover {
+  background-color: #ff9966;
+  box-shadow: 3px 3px 50px 4px #F47D05;
+
 }
 
 .search-ingredient {
@@ -101,4 +103,24 @@ body {
   border-radius: 13px;
   height: 29px;
   font-weight: 500;
+}
+
+.recipe-btns {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.cook-and-favorite-btn {
+  width: 80px;
+  background-color: transparent;
+  border: 0px;
+}
+
+.cook-and-favorite-btn:hover {
+  width: 80px;
+  background-color:#ffaa80;
+  border: 0px;
+  border-radius: 14px;
 }
