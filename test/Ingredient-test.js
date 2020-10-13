@@ -105,6 +105,20 @@ describe('Ingredient class', () => {
 
       expect(totalCost).to.equal(5360);
     })
+
+    it('should return id# when search by ingredient\'s name', () => {
+      ingredient = new Ingredient([creamer,coffeeBeans]);
+      const id = ingredient.returnId('creamer');
+      
+      expect(id).to.equal(624);
+    })
+
+    it('should return undefined when ingredient\'s name is not found', () => {
+      ingredient = new Ingredient([creamer,coffeeBeans]);
+      const id = ingredient.returnId('milk');
+
+      expect(id).to.equal(undefined);
+    })
   })
 
 })

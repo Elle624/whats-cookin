@@ -19,5 +19,10 @@ class Ingredient {
     }
   }
 
+  returnId(ingredientName) {
+    let ingredient = this.ingredientsArray.find(ingre => ingre.name === ingredientName);
+    return ingredient ? ingredient.id : undefined;
+  } 
+
 }
 module.exports = Ingredient;
