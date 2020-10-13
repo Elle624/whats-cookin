@@ -18,7 +18,7 @@ body {
   height: 140px;
 }
 
-.nav-buttons{
+.nav-buttons {
   background-color: #ff9966;
     border: 1px;
     border-radius: 5px;
@@ -26,21 +26,21 @@ body {
     cursor: pointer;
 }
 
-.nav-buttons button:hover{
+.nav-buttons button:hover {
   background: #fff;
 }
 
-.search-ingredient{
+.search-ingredient {
   padding-top: 5px;
   padding-left: 0px;
 }
 
-.search-ingredient input{
+.search-ingredient input {
   height: 25px;
   width: 200px;
 }
 
-.tags h5{
+.tags h5 {
   margin: 10px 0px 10px 10px;
     color: #993300;
 }
@@ -54,25 +54,26 @@ body {
   width: 200px;
 }
 
-.recipe-card{
+.recipe-card {
   display: flex;
     background-color: #fff;
     height: 200px;
     border-color: black;
     width: 200px;
     flex-direction: column;
+    justify-content: flex-end;
     border: 1px solid grey;
-    
+    margin-top: 20px;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 31px;
     flex-wrap: wrap;
 }
 
-.recipe-card h1{
+.recipe-card h1 {
   margin: 5px;
 }
 
-.main-page{
+.main-page {
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -80,9 +81,24 @@ body {
 
 }
 
-.all-cards{
+.all-cards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 700px;
+}
+
+.btn {
+  border: 1px grey solid;
+  border-radius: 13px;
+  height: 29px;
+  font-weight: 500;
+}
+.btn:hover {
+  background-image:none !important;
+  background-color:#ffaa80 !important;
+  border: 1px grey solid;
+  border-radius: 13px;
+  height: 29px;
+  font-weight: 500;
 }
