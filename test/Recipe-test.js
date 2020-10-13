@@ -112,18 +112,10 @@ describe('Recipe class', () => {
 
     it('should be able to search by an ingredient', () => {
       recipe = new Recipe([applePie, beefNoodle]);
-      let result = recipe.searchByIngredient('sugar');
+      let result = recipe.searchByIngredient(410);
 
       expect(result).to.deep.equal([applePie, beefNoodle]);
     })
-
-    it('should return ampty array if ingredient is not found', () => {
-      recipe = new Recipe([applePie, beefNoodle]);
-      let result = recipe.searchByIngredient('peach');
-
-      expect(result).to.deep.equal([]);
-    })
-
-
   })
+
 })
