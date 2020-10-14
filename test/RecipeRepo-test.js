@@ -1,11 +1,11 @@
 const chai = require("chai");
 const expect = chai.expect;
-const Recipe = require('../src/Recipe');
+const RecipeRepo = require('../src/RecipeRepo');
 
 describe('Recipe class', () => {
-  let recipe, applePie, beefNoodle, ingredient;
+  let recipes, applePie, beefNoodle;
   beforeEach( () => {
-    recipe = new Recipe();
+    recipes = new RecipeRepo();
     applePie = {
       id: 1, 
       img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -65,54 +65,54 @@ describe('Recipe class', () => {
   describe('Initialize', () => {
 
     it('should be a function', () => {
-      expect(Recipe).to.be.a('function');
+      expect(RecipeRepo).to.be.a('function');
     })
 
     it('should be an instance of Recipe class', () => {
-      expect(recipe).to.be. an.instanceof(Recipe);
+      expect(recipes).to.be. an.instanceof(RecipeRepo);
     })
 
     it('should have no recipe by default', () => {
-      expect(recipe.recipesArray).to.deep.equal([]);
+      expect(recipes.recipesArray).to.deep.equal([]);
     })
 
     it('should hold recipe that\'s passed in', () => {
-      recipe = new Recipe([applePie]);
+      recipes = new RecipeRepo([applePie]);
 
-      expect(recipe.recipesArray).to.deep.equal([applePie]);
+      expect(recipes.recipesArray).to.deep.equal([applePie]);
     })
 
     it('should hold more Array if passed in', () => {
-      recipe = new Recipe([applePie, beefNoodle]);
+      recipes = new RecipeRepo([applePie, beefNoodle]);
 
-      expect(recipe.recipesArray).to.deep.equal([applePie, beefNoodle]);
+      expect(recipes.recipesArray).to.deep.equal([applePie, beefNoodle]);
     })
   })
   describe('methods', () => {
 
     it('should return a recipe if that recipe is chosen', () => {
-      recipe.returnCurrentRecipe(applePie);
+      recipes.returnCurrentRecipe(applePie);
 
-      expect(recipe.currentRecipe).to.deep.equal(applePie);
+      expect(recipes.currentRecipe).to.deep.equal(applePie);
     })
 
     it('should be able to search by name', () => {
-      recipe = new Recipe([applePie, beefNoodle]);
-      let result = recipe.searchByName('apple pie');
+      recipes = new RecipeRepo([applePie, beefNoodle]);
+      let result = recipes.searchByName('apple pie');
       
       expect(result).to.deep.equal(applePie);
     })
 
     it('should return undefined if name is not found', () => {
-      recipe = new Recipe([applePie, beefNoodle]);
-      let result = recipe.searchByName('coffee');
+      recipes = new RecipeRepo([applePie, beefNoodle]);
+      let result = recipes.searchByName('coffee');
       
       expect(result).to.deep.equal(undefined);
     })
 
     it('should be able to search by an ingredient', () => {
-      recipe = new Recipe([applePie, beefNoodle]);
-      let result = recipe.searchByIngredient(410);
+      recipes = new RecipeRepo([applePie, beefNoodle]);
+      let result = recipes.searchByIngredient(410);
 
       expect(result).to.deep.equal([applePie, beefNoodle]);
     })

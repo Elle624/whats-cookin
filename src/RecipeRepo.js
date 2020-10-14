@@ -1,4 +1,4 @@
-class Recipe {
+class RecipeRepo {
   constructor(recipes = []) {
     this.recipesArray = recipes;
     this.currentRecipe;
@@ -21,4 +21,4 @@ class Recipe {
     return searchingByIngredient;
   }
 }
-module.exports = Recipe;
+module.exports = RecipeRepo;
