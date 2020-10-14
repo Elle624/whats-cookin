@@ -8,9 +8,10 @@ class RecipeRepo {
     this.currentRecipe = chosenRecipe;
   }
 
-  searchByName(name) {
-    let searchingByName = this.recipesArray.find(recipe =>  recipe.name === name);
-    return searchingByName;
+  searchByTag(tag) {
+    let searchingByTag = this.recipesArray.find(recipe => recipe.tags.includes(tag));
+   
+    return searchingByTag;
   }
 
   searchByIngredient(id) {

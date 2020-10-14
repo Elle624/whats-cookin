@@ -96,16 +96,16 @@ describe('Recipe class', () => {
       expect(recipes.currentRecipe).to.deep.equal(applePie);
     })
 
-    it('should be able to search by name', () => {
+    it('should be able to search by tag', () => {
       recipes = new RecipeRepo([applePie, beefNoodle]);
-      let result = recipes.searchByName('apple pie');
+      let result = recipes.searchByTag('sweet');
       
       expect(result).to.deep.equal(applePie);
     })
 
-    it('should return undefined if name is not found', () => {
+    it('should return undefined if tag is not found', () => {
       recipes = new RecipeRepo([applePie, beefNoodle]);
-      let result = recipes.searchByName('coffee');
+      let result = recipes.searchByTag('beverage');
       
       expect(result).to.deep.equal(undefined);
     })
