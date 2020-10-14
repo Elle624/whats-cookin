@@ -3,7 +3,7 @@ class IngredientRepo {
     this.ingredientsArray = ingredientDetail;
   }
 
-  calculateCost(chosenRecipe) {
+  calculateCostByDollar(chosenRecipe) {
     if(chosenRecipe && chosenRecipe.ingredients) {
       let cost = chosenRecipe.ingredients.reduce( (totalCost, ingredient) => {
         this.ingredientsArray.forEach(ingred => {
@@ -13,7 +13,7 @@ class IngredientRepo {
           })
           return totalCost;
         },0)
-      return cost;
+      return cost/100;
     } else {
       return 0
     }

@@ -1,13 +1,14 @@
 const chai = require("chai");
 const expect = chai.expect;
 const IngredientRepo = require('../src/IngredientRepo');
+const Ingredient = require('../src/Ingredient');
 
 describe('Ingredient class', () => {
-  let ingredient, creamer, coffeeBeans;
+  let ingredients, creamer, coffeeBeans;
   beforeEach( () => {
-    ingredient = new IngredientRepo();
-    creamer = {id: 624, name: 'creamer', estimatedCostInCents: 240};
-    coffeeBeans = {id: 642, name: 'coffee beans', estimatedCostInCents: 610};
+    ingredients = new IngredientRepo();
+    creamer = new Ingredient(624, 'creamer', 240);
+    coffeeBeans = new Ingredient(642, 'coffee beans', 610); 
   })
 
   describe('initialize', () => {
@@ -16,37 +17,37 @@ describe('Ingredient class', () => {
       expect(Ingredient).to.be.a('function');
     })
 
-    it('should be an instance of Ingredient class', () => { 
-      expect(ingredient).to.be.an.instanceof(Ingredient);
+    it('should be an instance of IngredientRepo class', () => { 
+      expect(ingredients).to.be.an.instanceof(IngredientRepo);
     })
 
     it('should have no ingredients by default', () => {
-      expect(ingredient.ingredientsArray).to.deep.equal([]);
+      expect(ingredients.ingredientsArray).to.deep.equal([]);
     })
 
     it('should hold an ingredient', () => {
-      ingredient = new IngredientRepo([creamer]);
+      ingredients = new IngredientRepo([creamer]);
       
-      expect(ingredient.ingredientsArray).to.deep.equal([creamer]);
+      expect(ingredients.ingredientsArray).to.deep.equal([creamer]);
     })
 
     it('should hold more than one ingredient', () => {
-      ingredient = new IngredientRepo([creamer,coffeeBeans]);
+      ingredients = new IngredientRepo([creamer,coffeeBeans]);
       
-      expect(ingredient.ingredientsArray).to.deep.equal([creamer,coffeeBeans]);
+      expect(ingredients.ingredientsArray).to.deep.equal([creamer,coffeeBeans]);
     })
   }) 
 
   describe('methods', () => {
 
     it('should return 0 at cost if there\'s no recipe', () => {
-      const cost = ingredient.calculateCost();
-
+      const cost = ingredients.calculateCostByDollar();
+      
       expect(cost).to.equal(0);
     })
 
     it('should calculate a cost', () => {
-      ingredient = new IngredientRepo([creamer]);
+      ingredients = new IngredientRepo([creamer]);
       const recipe1 = {
         id: 123, 
         img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -68,13 +69,13 @@ describe('Ingredient class', () => {
         tags: ['add on']
       };
 
-      let totalCost = ingredient.calculateCost(recipe1);
+      let totalCost = ingredients.calculateCostByDollar(recipe1);
 
-      expect(totalCost).to.equal(960);
+      expect(totalCost).to.equal(9.6);
     })
   
     it('should calculate more cost', () => {
-      ingredient = new IngredientRepo([creamer, coffeeBeans]);
+      ingredients = new IngredientRepo([creamer, coffeeBeans]);
       const recipe2 = {
         id: 456, 
         img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -101,21 +102,21 @@ describe('Ingredient class', () => {
         tags: ['beverage', 'drink']
       };
 
-      let totalCost = ingredient.calculateCost(recipe2);
+      let totalCost = ingredients.calculateCostByDollar(recipe2);
 
-      expect(totalCost).to.equal(5360);
+      expect(totalCost).to.equal(53.6);
     })
 
     it('should return id# when search by ingredient\'s name', () => {
-      ingredient = new IngredientRepo([creamer,coffeeBeans]);
-      const id = ingredient.returnId('creamer');
+      ingredients = new IngredientRepo([creamer,coffeeBeans]);
+      const id = ingredients.returnId('creamer');
       
       expect(id).to.equal(624);
     })
 
     it('should return undefined when ingredient\'s name is not found', () => {
-      ingredient = new IngredientRepo([creamer,coffeeBeans]);
-      const id = ingredient.returnId('milk');
+      ingredients = new IngredientRepo([creamer,coffeeBeans]);
+      const id = ingredients.returnId('milk');
 
       expect(id).to.equal(undefined);
     })
