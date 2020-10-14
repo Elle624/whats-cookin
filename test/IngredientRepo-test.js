@@ -1,11 +1,11 @@
 const chai = require("chai");
 const expect = chai.expect;
-const Ingredient = require('../src/Ingredient');
+const IngredientRepo = require('../src/IngredientRepo');
 
 describe('Ingredient class', () => {
   let ingredient, creamer, coffeeBeans;
   beforeEach( () => {
-    ingredient = new Ingredient();
+    ingredient = new IngredientRepo();
     creamer = {id: 624, name: 'creamer', estimatedCostInCents: 240};
     coffeeBeans = {id: 642, name: 'coffee beans', estimatedCostInCents: 610};
   })
@@ -25,13 +25,13 @@ describe('Ingredient class', () => {
     })
 
     it('should hold an ingredient', () => {
-      ingredient = new Ingredient([creamer]);
+      ingredient = new IngredientRepo([creamer]);
       
       expect(ingredient.ingredientsArray).to.deep.equal([creamer]);
     })
 
     it('should hold more than one ingredient', () => {
-      ingredient = new Ingredient([creamer,coffeeBeans]);
+      ingredient = new IngredientRepo([creamer,coffeeBeans]);
       
       expect(ingredient.ingredientsArray).to.deep.equal([creamer,coffeeBeans]);
     })
@@ -46,7 +46,7 @@ describe('Ingredient class', () => {
     })
 
     it('should calculate a cost', () => {
-      ingredient = new Ingredient([creamer]);
+      ingredient = new IngredientRepo([creamer]);
       const recipe1 = {
         id: 123, 
         img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -74,7 +74,7 @@ describe('Ingredient class', () => {
     })
   
     it('should calculate more cost', () => {
-      ingredient = new Ingredient([creamer, coffeeBeans]);
+      ingredient = new IngredientRepo([creamer, coffeeBeans]);
       const recipe2 = {
         id: 456, 
         img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -107,14 +107,14 @@ describe('Ingredient class', () => {
     })
 
     it('should return id# when search by ingredient\'s name', () => {
-      ingredient = new Ingredient([creamer,coffeeBeans]);
+      ingredient = new IngredientRepo([creamer,coffeeBeans]);
       const id = ingredient.returnId('creamer');
       
       expect(id).to.equal(624);
     })
 
     it('should return undefined when ingredient\'s name is not found', () => {
-      ingredient = new Ingredient([creamer,coffeeBeans]);
+      ingredient = new IngredientRepo([creamer,coffeeBeans]);
       const id = ingredient.returnId('milk');
 
       expect(id).to.equal(undefined);

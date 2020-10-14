@@ -1,4 +1,4 @@
-class Ingredient {
+class IngredientRepo {
   constructor(ingredientDetail = []) {
     this.ingredientsArray = ingredientDetail;
   }
@@ -25,4 +25,4 @@ class Ingredient {
   } 
 
 }
-module.exports = Ingredient;
+module.exports = IngredientRepo;
