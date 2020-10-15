@@ -1,15 +1,16 @@
 const chai = require("chai");
 const expect = chai.expect;
 const RecipeRepo = require('../src/RecipeRepo');
+const Recipe = require('../src/Recipe');
 
 describe('Recipe class', () => {
   let recipes, applePie, beefNoodle;
   beforeEach( () => {
     recipes = new RecipeRepo();
-    applePie = {
-      id: 1, 
-      img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
-      ingredients: [
+    applePie = new Recipe(
+      1, 
+      'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
+      [
         {
           id: 320, 
           quantity: {
@@ -25,18 +26,18 @@ describe('Recipe class', () => {
           }
         }
       ],
-      instruction: [
+      [
         {instruction: 'step 1'}, 
         {instruction: 'step 2'},
         {instruction: 'step 3'}
       ],
-      name: 'apple pie',
-      tags: ['sweet', 'desert']
-    };
-    beefNoodle = {
-      id: 2, 
-      img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
-      ingredients: [
+      'apple pie',
+      ['sweet', 'desert']
+    );
+    beefNoodle = new Recipe(
+      2, 
+      'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
+      [
         {
           id: 302, 
           quantity: {
@@ -52,14 +53,14 @@ describe('Recipe class', () => {
           }
         }
       ],
-      instruction: [
+      [
         {instruction: 'step 1'}, 
         {instruction: 'step 2'},
         {instruction: 'step 3'}
       ],
-      name: 'beef noodle',
-      tags: ['flour made', 'main dish', 'hot dish']
-    }
+      'beef noodle',
+      ['flour made', 'main dish', 'hot dish']
+    )
   })
 
   describe('Initialize', () => {
@@ -68,21 +69,21 @@ describe('Recipe class', () => {
       expect(RecipeRepo).to.be.a('function');
     })
 
-    it('should be an instance of Recipe class', () => {
+    it('should be an instance of RecipeRepo class', () => {
       expect(recipes).to.be. an.instanceof(RecipeRepo);
     })
 
-    it('should have no recipe by default', () => {
+    it('should have no recipes by default', () => {
       expect(recipes.recipesArray).to.deep.equal([]);
     })
 
-    it('should hold recipe that\'s passed in', () => {
+    it('should hold a recipe that\'s passed in', () => {
       recipes = new RecipeRepo([applePie]);
 
       expect(recipes.recipesArray).to.deep.equal([applePie]);
     })
 
-    it('should hold more Array if passed in', () => {
+    it('should hold more recipes if passed in', () => {
       recipes = new RecipeRepo([applePie, beefNoodle]);
 
       expect(recipes.recipesArray).to.deep.equal([applePie, beefNoodle]);
