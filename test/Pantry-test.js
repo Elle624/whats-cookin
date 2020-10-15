@@ -7,9 +7,9 @@ describe('Pantry class', () => {
   beforeEach(() => {
     pantry = new Pantry();
     ellePantry = new Pantry([
-      {ingredient: 11, acount: 6},
-      {ingredient: 22, acount: 7},
-      {ingredient: 33, acount: 8}
+      {ingredient: 11, amount: 6},
+      {ingredient: 22, amount: 7},
+      {ingredient: 33, amount: 8}
     ])
   })
 
@@ -30,56 +30,74 @@ describe('Pantry class', () => {
 
   describe('methods', () => {
 
-    it('should return true if pantry has enough ingredients for the recipe', () => {
+    it('should return empty if pantry has enough ingredients for the recipe', () => {
       const recipe = {ingredients: [
-        {id: 11, quantity: {amount: 2}},
-        {id: 22, quantity: {amount: 4}},
-        {id: 33, quantity: {amount: 3}}]}
-      let result = ellePantry.checkPantry(recipe);
-
-      expect(result).to.equal(true);
-    })
-
-    it('should return false if pantry does not have enough ingredients for the recipe', () => {
-      const recipe = {ingredients: [
-        {id: 11, quantity: {amount: 2}},
-        {id: 22, quantity: {amount: 4}},
-        {id: 44, quantity: {amount: 6}}]}
-      let result = ellePantry.checkPantry(recipe);
-
-      expect(result).to.equal(false);
-    })
-
-    it('should return missing ingredients in an array', () => {
-      const recipe = {ingredients: [
-        {id: 11, quantity: {amount: 2}},
-        {id: 22, quantity: {amount: 6}},
-        {id: 33, quantity: {amount: 16}}
+        {id: 11, quantity: {amount: 2, unit: 'tbs'}},
+        {id: 22, quantity: {amount: 4, unit: 'lbs'}},
+        {id: 33, quantity: {amount: 3, unit: 'mg'}}
       ]}
-      let result = ellePantry.checkMissingIngredient(recipe);
+
+      let result = ellePantry.compareIngredients(recipe);
       
-
-      expect(result).to.deep.equal([{id: 33, quantity: {amount: 16}}])
+      expect(result).to.deep.equal([]);
     })
 
-    it('', () => {
+    it('should return ingredients that\'s missing from pantry in an array', () => {
       const recipe = {ingredients: [
-        {id: 11, quantity: {amount: 2}},
-        {id: 24, quantity: {amount: 10}},
-        {id: 25, quantity: {amount: 6}}
+        {id: 11, quantity: {amount: 2, unit: 'tbs'}},
+        {id: 24, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 45, quantity: {amount: 6, unit: 'mg'}}
       ]}
-      let result = ellePantry.checkMissingIngredient(recipe);
-      // ellePantry = new Pantry([
-      //   {ingredient: 11, acount: 6},
-      //   {ingredient: 22, acount: 7},
-      //   {ingredient: 33, acount: 8}
-      // ])
-     
+      let result = ellePantry.compareIngredients(recipe);
+      
       expect(result).to.deep.equal([
-        {id: 24, quantity: {amount: 10}},
-        {id: 25, quantity: {amount: 6}}
+        {id: 24, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 45, quantity: {amount: 6, unit: 'mg'}}
+      ])
+    })
+
+    it('should also return ingredients that does not have enough amount from pantry in the array', () => {
+      const recipe = {ingredients: [
+        {id: 11, quantity: {amount: 2, unit: 'tbs'}},
+        {id: 22, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 25, quantity: {amount: 6, unit: 'mg'}}
+      ]}
+      let result = ellePantry.compareIngredients(recipe);
+
+      expect(result).to.deep.equal([
+        {id: 22, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 25, quantity: {amount: 6, unit: 'mg'}}
       ])
       
+    })
+
+    it('should re arrange missing ingredients in a new object', () => {
+      const recipe = {ingredients: [
+        {id: 11, quantity: {amount: 2, unit: 'tbs'}},
+        {id: 22, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 25, quantity: {amount: 6, unit: 'mg'}}
+      ]};
+     
+      let result = ellePantry.reviewMissingIngredients([
+        {id: 22, quantity: {amount: 10, unit: 'lbs'}},
+        {id: 25, quantity: {amount: 6, unit: 'mg'}}
+      ]);
+
+      expect(result).to.deep.equal([
+        {amount: 3, unit: 'lbs', id: 22},
+        {amount: 6, unit: 'mg', id: 25}
+      ]);
+    })
+
+    it('should remove ingredients amount accordingly once a recipe is chosen', () => {
+      const recipe = {ingredients: [
+        {id: 11, quantity: {amount: 6, unit: 'tbs'}},
+        {id: 22, quantity: {amount: 1, unit: 'lbs'}}
+      ]};
+    
+      ellePantry.removeIngredients(recipe);
+    
+      expect(ellePantry.pantry[0]).to.deep.equal({ingredient: 11, amount: 0});
     })
   })
 

@@ -3,41 +3,33 @@ class Pantry {
     this.pantry = pantry;
   }
 
-  checkPantry(recipe) {
-    let result = recipe.ingredients.every((ingred) => {
-      return this.pantry.find((eachIngred) => {
-        return eachIngred.ingredient === ingred.id;
-      })
+  compareIngredients(recipe) {
+    let result = recipe.ingredients.filter(recipeIng =>{
+      const condition1 = this.pantry.find(pantryIng => pantryIng.ingredient === recipeIng.id && pantryIng.amount < recipeIng.quantity.amount);
+      const condition2 = !this.pantry.find(pantryIng => pantryIng.ingredient === recipeIng.id);
+      return condition1 || condition2;
     })
     return result;
   }
 
-  checkMissingIngredient(recipe) {
-    let result = recipe.ingredients.filter((ingred) => {
-      return this.pantry.find((eachIngred) => eachIngred.ingredient === ingred.id && eachIngred.acount < ingred.quantity.amount) ||
-
-      !this.pantry.find((eachIngred) => eachIngred.ingredient === ingred.id);
+  reviewMissingIngredients(shortIngredients) {
+    let newArrange = shortIngredients.map(shortIng => {
+      let findResult = this.pantry.find(pantryIng => pantryIng.ingredient === shortIng.id);
+      let newNum = findResult ? shortIng.quantity.amount - findResult.amount : shortIng.quantity.amount;
+      return {amount: newNum, unit: shortIng.quantity.unit, id: shortIng.id};
     })
-    return result
+    return newArrange;
   }
-  // checkMissingIngredient(recipe) {
-  //   let result = recipe.ingredients.filter((ingred) => {
-  //     return !this.pantry.find((eachIngred) => {
-  //       // console.log('recipe', ingred)
-  //         // console.log('pantry', eachIngred)
-  //         // console.log('is true', eachIngred.ingredient !== ingred.id)
-  //         return eachIngred.ingredient === ingred.id
 
-
-  //       // if(eachIngred.ingredient === ingred.id) {
-  //       //   return eachIngred.acount < ingred.quantity.amount;
-  //       // } else if(eachIngred.ingredient !== ingred.id) {
-  //       //   return true;
-  //       // }
-  //     })
-  //   })
-  //   return result;
-  // }
+  removeIngredients(recipe) {
+    this.pantry.map(pantryIng => {
+      recipe.ingredients.forEach(recipeIng => {
+        if(recipeIng.id === pantryIng.ingredient) {
+          pantryIng.amount -= recipeIng.quantity.amount;
+        }
+      });
+    });
+  }
 
 }
 module.exports = Pantry;
