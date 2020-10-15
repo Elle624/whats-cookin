@@ -1,6 +1,12 @@
 const recipesSection = document.querySelector('.all-cards')
 const tagsSection = document.querySelector('.tags')
+const favRecipesBtn = document.querySelector('.saved-recipes')
+const favRecipesPage = document.querySelector('.favorites-page-view')
+const mainPage = document.querySelector('.main-page')
 
+
+//eventlisteners
+favRecipesBtn.addEventListener('click', viewFavoriteRecipes)
 
 function displayRecipes() {
   recipeData.forEach(recipeDetail => {
@@ -39,3 +45,18 @@ function displayTagsOption() {
 
 displayTagsOption();
 
+
+function changeClassProperty(elements) {
+  elements.forEach(element => {
+    if (element.add) {
+      (element.name).classList.add('hidden');
+    } else {
+      (element.name).classList.remove('hidden')
+    }
+  })
+}
+
+function viewFavoriteRecipes() {
+  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true}];
+  changeClassProperty(favSection);
+}
