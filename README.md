@@ -17,4 +17,5 @@ Objective - Create dynamic classes for Ingredient, Recipe, Pantry, User
 - Create User Class
 
 
-### Ieration 1 - CSS layout and 
+### Ieration 1 - CSS and Html Creation
+Objective - Create HTML, add classes to elements, add styling to styles.css
