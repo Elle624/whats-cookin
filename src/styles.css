@@ -68,7 +68,7 @@ body {
 .recipe-card {
   display: flex;
     background-color: #fff;
-    height: 227px;
+    height: 264px;
     border-color: black;
     width: 200px;
     flex-direction: column;
@@ -107,7 +107,9 @@ body {
   border-radius: 13px;
   height: 29px;
   font-weight: 500;
+  margin: 5px
 }
+
 .btn:hover {
   background-image:none !important;
   background-color:#ffaa80 !important;
