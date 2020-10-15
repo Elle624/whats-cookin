@@ -11,5 +11,10 @@
 
 ### Iteration 0 - Class Creation
 Objective - Create dynamic classes for Ingredient, Recipe, Pantry, User
+- Create Ingredient Class
+- Create Recipe Class
+- Create Pantry Class
+- Create User Class
+
 
 ### Ieration 1 - CSS layout and 
