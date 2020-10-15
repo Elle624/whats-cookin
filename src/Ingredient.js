@@ -1,22 +1,8 @@
 class Ingredient {
-  constructor(ingredientDetail = []) {
-    this.ingredientsArray = ingredientDetail;
-  }
-
-  calculateCost(chosenRecipe) {
-    if(chosenRecipe && chosenRecipe.ingredients) {
-      let cost = chosenRecipe.ingredients.reduce( (totalCost, ingredient) => {
-        this.ingredientsArray.forEach(ingred => {
-          if(ingred.id === ingredient.id) {
-            totalCost += ingred.estimatedCostInCents * ingredient.quantity.amount;
-            };
-          })
-          return totalCost;
-        },0)
-      return cost;
-    } else {
-      return 0
-    }
+  constructor(id, name, estimatedCostInCents) {
+    this.id = id;
+    this.name = name;
+    this.estimatedCostInCents = estimatedCostInCents;
   }
 
 }
