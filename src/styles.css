@@ -75,6 +75,7 @@ body {
     justify-content: flex-start;
     border: 1px solid grey;
     margin-top: 20px;
+    margin-left: 10px;
     align-items: center;
     margin-right: 31px;
     flex-wrap: wrap;
@@ -125,6 +126,7 @@ body {
 
 .cook-and-favorite-btn {
   width: 80px;
+  margin-top: 5px;
   background-color: transparent;
   border: 0px;
 }
@@ -191,4 +193,11 @@ img {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 10px;
+}
+
+.favorites-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: xx-large;
 }
