@@ -1,12 +1,17 @@
 const recipesSection = document.querySelector('.all-cards')
 const tagsSection = document.querySelector('.tags')
-const favRecipesBtn = document.querySelector('.saved-recipes')
+const favRecipesBtn = document.querySelector('.fav-recipes-btn')
 const favRecipesPage = document.querySelector('.favorites-page-view')
 const mainPage = document.querySelector('.main-page')
-
+const homeBtn = document.querySelector('.home-btn')
+const toCookBtn = document.querySelector('.to-cook-btn')
+const toCookPage = document.querySelector('.to-cook-page-view')
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes)
+homeBtn.addEventListener('click', returnHome)
+toCookBtn.addEventListener('click', viewRecipesToCook)
+
 
 function displayRecipes() {
   recipeData.forEach(recipeDetail => {
@@ -57,6 +62,17 @@ function changeClassProperty(elements) {
 }
 
 function viewFavoriteRecipes() {
-  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true}];
+  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true},{name: toCookPage, add: true}];
   changeClassProperty(favSection);
 }
+
+function returnHome() {
+  let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}];
+  changeClassProperty(homeSection)
+}
+
+function viewRecipesToCook() {
+  let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}];
+  changeClassProperty(toCookSection)
+}
+
