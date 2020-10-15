@@ -1,51 +1,34 @@
-# What's Cookin'? Starter Kit 
+# What's Cookin'? - Pair Project 
 
-The details of this project are outlined in the <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
+### Contributors
+- Peyton Jones [Github Profile](https://github.com/Peytonjo)
+- Elle Li [Github Profile](https://github.com/Elle624)
 
-## Set Up 
+### Set Up
+* Fork the repo and clone down into the terminal.
+* Open in the text editor.
+* In the terminal, run command "open index.html" to interact with the app.
 
-1. Within your group, decide on one person to have the project repository on their Github account. This person will *fork* this repository - on the top right corner of the page, click the fork button. 
-2. Both group members should then clone down the forked repository (make sure that everyone is added as a collaborator as well). Since you don't want your project to be named "whats-cookin-starter-kit", add an optional argument after the repo url when cloning. The command should look like this: `git clone [remote-address] [what you want to name the repo]`.
-3. Once you have cloned the repo, change into the directory and install the project dependencies. Run npm install to install project dependencies.
-4. Run open src/index.html in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page)
-5. Make sure both members of your team are collaborators on the forked repo.
-
-## Testing 
-
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran npm install, then the tooling you need to start testing is already installed (mocha and chai).
-
-## Linting Your Code 
-
-Run the command in your terminal npm run lint to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
-
-Your linter will look only at the JavaScript files you have within the src and the test directories.
+### Iteration 0 - Class Creation
+Objective - Create dynamic classes for Ingredient, Recipe, Pantry, User
+- Create Ingredient Class
+- Create Recipe Class
+- Create Pantry Class
+- Create User Class
 
 
-## Data Model
-### Users
-```js
-{
-  "id": [number],
-  "name": [string],
-  "pantry": [array of objects with amount and ingredient id properties]
-},
-```
+### Ieration 1 - CSS and Html Creation
+Objective - Create HTML, add classes to elements, add styling to styles.css
+- Build HTML layout for:
+  - Recipe Cards on main page
+  - Recipe view page
+  - Users Favorite Recipes Page 
+- Add styling using css for:
+  - Recipe Cards on main page
+  - Recipe view page
+  - Users Favorite Recipes Page 
+  
+  ### Iteration 2 - DOM Manipulation 
+  Objective - Add functionality to buttons and be able to change pages based on buttons
+  
 
-### Recipes
-```js
-{
-  "ingredients" [array of objects with ingredients ids(connection to ingredients), ingredient names, and quantity data],
-  "instructions": [array of objects with instructions properties and numbered steps],
-  "name": [string],
-  "tags": [array of strings representing info about the recipes]
-}
-```
-
-### Ingredients
-```js
-{
-  "estimatedCostInCents": [number],
-  "id": [number -- connection to users and recipes],
-  "name": [string]
-}
-```
