@@ -8,12 +8,8 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
-  addFavoriteRecipe(recipe) {
-    this.favoriteRecipes.push(recipe);
-  }
-
-  addRecipeToCook(recipe) {
-    this.recipesToCook.push(recipe);
+  addRecipe(category, recipe) {
+    this[category].push(recipe);
   }
 
   filterRecipesByTag(recipeArrayName, tag) {

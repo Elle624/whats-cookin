@@ -106,20 +106,20 @@ describe('User class', () => {
   describe('methods', () => {
 
     it('should have favorite recipe if passed in', () => {
-      userElle.addFavoriteRecipe(applePie);
+      userElle.addRecipe('favoriteRecipes', applePie);
 
       expect(userElle.favoriteRecipes).to.deep.equal([applePie]);
     })
 
     it('should have recipes to cook if passed in', () => {
-      userElle.addRecipeToCook(applePie);
+      userElle.addRecipe('recipesToCook', applePie);
 
       expect(userElle.recipesToCook).to.deep.equal([applePie]);
     })
 
     it('should be able to filter favorite recipes by tag', () => {
-      userElle.addFavoriteRecipe(applePie);
-      userElle.addFavoriteRecipe(beefNoodle);
+      userElle.addRecipe('favoriteRecipes', applePie);
+      userElle.addRecipe('recipesToCook', beefNoodle);
 
       let recipes = userElle.filterRecipesByTag('favoriteRecipes', 'sweet');
 
@@ -127,8 +127,8 @@ describe('User class', () => {
     })
 
     it('should be able to filter recipes to cook by tag', () => {
-      userElle.addRecipeToCook(applePie);
-      userElle.addRecipeToCook(beefNoodle);
+      userElle.addRecipe('favoriteRecipes', applePie);
+      userElle.addRecipe('recipesToCook', beefNoodle);
 
       let recipes = userElle.filterRecipesByTag('recipesToCook', 'main dish');
 
@@ -136,8 +136,8 @@ describe('User class', () => {
     })
 
     it('should be able to search within favorite recipes by recipe name', () => {
-      userElle.addFavoriteRecipe(applePie);
-      userElle.addFavoriteRecipe(beefNoodle);
+      userElle.addRecipe('favoriteRecipes', applePie);
+      userElle.addRecipe('recipesToCook', beefNoodle);
 
       let result = userElle.searchFavoriteByName('apple pie');
 
@@ -145,8 +145,8 @@ describe('User class', () => {
     })
 
     it('should be able to search within favorite recipes by ingredient name', () => {
-      userElle.addFavoriteRecipe(applePie);
-      userElle.addFavoriteRecipe(beefNoodle);
+      userElle.addRecipe('favoriteRecipes', applePie);
+      userElle.addRecipe('favoriteRecipes', beefNoodle);
 
       let result = userElle.searchFavoriteByIngredient(410);
 
