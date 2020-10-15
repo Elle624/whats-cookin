@@ -19,3 +19,12 @@ Objective - Create dynamic classes for Ingredient, Recipe, Pantry, User
 
 ### Ieration 1 - CSS and Html Creation
 Objective - Create HTML, add classes to elements, add styling to styles.css
+- Build HTML layout for:
+  - Recipe Cards on main page
+  - Recipe view page
+  - Users Favorite Recipes Page 
+ - Add styling using css for:
+  - Recipe Cards on main page
+  - Recipe view page
+  - Users Favorite Recipes Page 
+
