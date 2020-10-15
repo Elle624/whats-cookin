@@ -4,7 +4,7 @@ const User = require('../src/User');
 
 
 describe('User class', () => {
-  let userElle, userIsabelle, applePie, beefNoodle;
+  let userElle, applePie, beefNoodle;
 
   beforeEach(() => {
     userElle = new User('Elle', 1, [
@@ -12,11 +12,7 @@ describe('User class', () => {
         {ingredient: 624, amount: 10}, 
         {ingredient: 620, amount: 8}
       ]);
-    // userIsabelle = new User('Isablle', 2, [
-    //     {ingredient: 710, amount: 3}, 
-    //     {ingredient: 724, amount: 5}, 
-    //     {ingredient: 720, amount: 4}
-    //   ]);
+    
     applePie = {
       id: 1, 
       img: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
