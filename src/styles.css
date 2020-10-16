@@ -216,3 +216,9 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.pantry-page-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
