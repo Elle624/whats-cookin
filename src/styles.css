@@ -3,7 +3,7 @@ body {
   background-color: #fff;
 }
 
-.nav-one {
+.nav-panel {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -13,7 +13,7 @@ body {
   height: 40px;
 }
 
-.nav-two {
+.filter {
   display: flex;
   height: 140px;
 }
@@ -68,7 +68,7 @@ body {
 .recipe-card {
   display: flex;
     background-color: #fff;
-    height: 227px;
+    height: 264px;
     border-color: black;
     width: 200px;
     flex-direction: column;
@@ -107,6 +107,7 @@ body {
   border-radius: 13px;
   height: 29px;
   font-weight: 500;
+  margin:5px
 }
 .btn:hover {
   background-image:none !important;
