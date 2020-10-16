@@ -6,15 +6,22 @@ const mainPage = document.querySelector('.main-page')
 const homeBtn = document.querySelector('.home-btn')
 const toCookBtn = document.querySelector('.to-cook-btn')
 const toCookPage = document.querySelector('.to-cook-page-view')
+const filterSection = document.querySelector('.filter');
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes)
 homeBtn.addEventListener('click', returnHome)
 toCookBtn.addEventListener('click', viewRecipesToCook)
+filterSection.addEventListener('click', filterByTags);
 
+function filterByTags() {
+  let newList =  recipeData.filter(recipe => recipe.tags.includes(event.target.innerText));
+  displayRecipes(newList);
+}
 
-function displayRecipes() {
-  recipeData.forEach(recipeDetail => {
+function displayRecipes(recipes) {
+  recipesSection.innerHTML = ''
+  recipes.forEach(recipeDetail => {
     recipesSection.innerHTML +=
   `<article class="recipe-card">
     <img src="${recipeDetail.image}">
@@ -27,7 +34,7 @@ function displayRecipes() {
   }) 
 }
 
-displayRecipes();
+displayRecipes(recipeData);
 
 function createTagsOption() {
   return recipeData.reduce((tagsList, recipe) => {
@@ -44,7 +51,7 @@ function displayTagsOption() {
   let tagsList = createTagsOption();
   tagsList.forEach(tag => {
     tagsSection.innerHTML += 
-    `<button class="btn">#${tag}</button>`
+    `<button class="btn">${tag}</button>`
   })
 }
 
