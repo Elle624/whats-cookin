@@ -7,12 +7,15 @@ const homeBtn = document.querySelector('.home-btn')
 const toCookBtn = document.querySelector('.to-cook-btn')
 const toCookPage = document.querySelector('.to-cook-page-view')
 const filterSection = document.querySelector('.filter');
+const myPantryBtn = document.querySelector('.pantry-btn')
+const myPantryPage = document.querySelector('.pantry-page-view')
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes)
 homeBtn.addEventListener('click', returnHome)
 toCookBtn.addEventListener('click', viewRecipesToCook)
 filterSection.addEventListener('click', filterByTags);
+myPantryBtn.addEventListener('click', viewMyPantry)
 
 function filterByTags() {
   let newList =  recipeData.filter(recipe => recipe.tags.includes(event.target.innerText));
@@ -35,6 +38,18 @@ function displayRecipes(recipes) {
 }
 
 displayRecipes(recipeData);
+
+function displayIngredients() {
+  usersData.forEach(ingredDetail => {
+    myPantryPage.innerHTML += 
+    `<section class="pantry-page-view">
+      <h1>${ingredDetail.name}'s Pantry</h1>
+      <article>${ingredDetail.pantry}</article>
+     </section>`
+  })
+}
+
+displayIngredients();
 
 function createTagsOption() {
   return recipeData.reduce((tagsList, recipe) => {
@@ -81,5 +96,10 @@ function returnHome() {
 function viewRecipesToCook() {
   let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}];
   changeClassProperty(toCookSection)
+}
+
+function viewMyPantry() {
+  let myPantrySection = [{name: myPantryPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true},{name: toCookPage, add: true}];
+  changeClassProperty(myPantrySection)
 }
 
