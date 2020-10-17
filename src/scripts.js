@@ -1,30 +1,55 @@
-const recipesSection = document.querySelector('.all-cards')
-const tagsSection = document.querySelector('.tags')
-const favRecipesBtn = document.querySelector('.fav-recipes-btn')
-const favRecipesPage = document.querySelector('.favorites-page-view')
-const mainPage = document.querySelector('.main-page')
-const homeBtn = document.querySelector('.home-btn')
-const toCookBtn = document.querySelector('.to-cook-btn')
-const toCookPage = document.querySelector('.to-cook-page-view')
+//const User = require('../src/User');
+
+const recipesSection = document.querySelector('.all-cards');
+const tagsSection = document.querySelector('.tags');
+const favRecipesBtn = document.querySelector('.fav-recipes-btn');
+const favRecipesPage = document.querySelector('.favorites-page-view');
+const mainPage = document.querySelector('.main-page');
+const homeBtn = document.querySelector('.home-btn');
+const toCookBtn = document.querySelector('.to-cook-btn');
+const toCookPage = document.querySelector('.to-cook-page-view');
 const filterSection = document.querySelector('.filter');
-const myPantryBtn = document.querySelector('.pantry-btn')
-const myPantryPage = document.querySelector('.pantry-page-view')
+const myPantryBtn = document.querySelector('.pantry-btn');
+const myPantryPage = document.querySelector('.pantry-page-view');
+const userName = document.getElementById('user-name');
+const userIngredients = document.getElementById('user-ingredients');
 
 //eventlisteners
-favRecipesBtn.addEventListener('click', viewFavoriteRecipes)
-homeBtn.addEventListener('click', returnHome)
-toCookBtn.addEventListener('click', viewRecipesToCook)
+favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
+homeBtn.addEventListener('click', returnHome);
+toCookBtn.addEventListener('click', viewRecipesToCook);
 filterSection.addEventListener('click', filterByTags);
-myPantryBtn.addEventListener('click', viewMyPantry)
+myPantryBtn.addEventListener('click', viewMyPantry);
 
-function filterByTags() {
-  let newList =  recipeData.filter(recipe => recipe.tags.includes(event.target.innerText));
-  displayRecipes(newList);
+//gv
+const ingredientsRepo = new IngredientRepo(ingredientsData);
+const recipesRepo = new RecipesRepo(recipeData);
+const user1 = new User(usersData[0])
+
+
+function displayPantry() {
+  userName.innerHTML = 
+  `<h1>${user1.name}'s Pantry</h1>`;
+  user1.pantry.pantry.forEach(ingred => {
+    let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient)
+    userIngredients.innerHTML += 
+    `
+    <article> ${result.name} : ${ingred.amount}</article>
+    `
+  })
+ 
+    // myPantryPage.innerHTML += 
+    // `<section class="pantry-page-view">
+    //   <h1>${test.name}'s Pantry</h1>
+    //   <article>ingredientName</article>
+    //   <article>${test.pantry[0].amount}</article>
+    //  </section>`
+  //})
 }
 
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
-  recipes.forEach(recipeDetail => {
+  recipes.recipesArray.forEach(recipeDetail => {
     recipesSection.innerHTML +=
   `<article class="recipe-card">
     <img src="${recipeDetail.image}">
@@ -37,39 +62,8 @@ function displayRecipes(recipes) {
   }) 
 }
 
-displayRecipes(recipeData);
-
-function displayIngredients() {
-  const user = document.getElementById('user-name');
-  user.innerHTML = 
-  `<h1>${usersData[0].name}'s Pantry</h1>`
-
-  const ingredients = document.getElementById('user-ingredients');
-
-  usersData[0].pantry.forEach(ingred => {
-    ingredients.innerHTML += 
-    `
-    <article>ingredient: ${ingred.ingredient}</article>
-    <article>amount: ${ingred.amount}</article>
-    `
-  })
- 
-   
-   
-    
-    // myPantryPage.innerHTML += 
-    // `<section class="pantry-page-view">
-    //   <h1>${test.name}'s Pantry</h1>
-    //   <article>ingredientName</article>
-    //   <article>${test.pantry[0].amount}</article>
-    //  </section>`
-  //})
-}
-
-displayIngredients();
-
 function createTagsOption() {
-  return recipeData.reduce((tagsList, recipe) => {
+  return recipesRepo.recipesArray.reduce((tagsList, recipe) => {
     recipe.tags.forEach((tag) => {
       if(!tagsList.includes(tag)) {
         tagsList.push(tag)
@@ -87,8 +81,11 @@ function displayTagsOption() {
   })
 }
 
-displayTagsOption();
-
+function displayMainPage () {
+  displayPantry();
+  displayTagsOption();
+  displayRecipes(recipesRepo);
+}
 
 function changeClassProperty(elements) {
   elements.forEach(element => {
@@ -120,3 +117,9 @@ function viewMyPantry() {
   changeClassProperty(myPantrySection)
 }
 
+function filterByTags() {
+  let newList = recipesRepo.recipesArray.filter(recipe => recipe.tags.includes(event.target.innerText));
+  displayRecipes({recipesArray: newList});
+}
+
+displayMainPage ();
