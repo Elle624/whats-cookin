@@ -40,13 +40,30 @@ function displayRecipes(recipes) {
 displayRecipes(recipeData);
 
 function displayIngredients() {
-  usersData.forEach(ingredDetail => {
-    myPantryPage.innerHTML += 
-    `<section class="pantry-page-view">
-      <h1>${ingredDetail.name}'s Pantry</h1>
-      <article>${ingredDetail.pantry}</article>
-     </section>`
+  const user = document.getElementById('user-name');
+  user.innerHTML = 
+  `<h1>${usersData[0].name}'s Pantry</h1>`
+
+  const ingredients = document.getElementById('user-ingredients');
+
+  usersData[0].pantry.forEach(ingred => {
+    ingredients.innerHTML += 
+    `
+    <article>ingredient: ${ingred.ingredient}</article>
+    <article>amount: ${ingred.amount}</article>
+    `
   })
+ 
+   
+   
+    
+    // myPantryPage.innerHTML += 
+    // `<section class="pantry-page-view">
+    //   <h1>${test.name}'s Pantry</h1>
+    //   <article>ingredientName</article>
+    //   <article>${test.pantry[0].amount}</article>
+    //  </section>`
+  //})
 }
 
 displayIngredients();
