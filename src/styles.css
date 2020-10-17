@@ -14,8 +14,11 @@ body {
 }
 
 .filter {
+  
   display: flex;
+  flex-direction: column;
   height: 140px;
+  width: 213px;
 }
 
 .nav-buttons {

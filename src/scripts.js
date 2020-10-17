@@ -31,6 +31,18 @@ function displayRecipes() {
 
 displayRecipes();
 
+function displayIngredients() {
+  usersData.forEach(ingredDetail => {
+    myPantryPage.innerHTML += 
+    `<section class="pantry-page-view">
+      <h1>${ingredDetail.name}'s Pantry</h1>
+      <article>${ingredDetail.pantry}</article>
+     </section>`
+  })
+}
+
+displayIngredients();
+
 function createTagsOption() {
   return recipeData.reduce((tagsList, recipe) => {
     recipe.tags.forEach((tag) => {
