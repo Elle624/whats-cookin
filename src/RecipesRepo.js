@@ -9,6 +9,7 @@ class RecipesRepo {
   returnCurrentRecipe(chosenRecipe) {
     this.currentRecipe = chosenRecipe;
   }
+  // need it?
 
   searchByTag(tag) {
     let searchingByTag = this.recipesArray.find(recipe => recipe.tags.includes(tag));
