@@ -1,4 +1,4 @@
-const Ingredient = require("./Ingredient");
+//const Ingredient = require("./Ingredient");
 
 class IngredientRepo {
   constructor(ingredientDetail = []) {
@@ -25,4 +25,4 @@ class IngredientRepo {
   } 
 
 }
-module.exports = IngredientRepo;
+//module.exports = IngredientRepo;

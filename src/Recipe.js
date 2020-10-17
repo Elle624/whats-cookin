@@ -8,4 +8,4 @@ class Recipe {
     this.tags = tags;
   }
 }
-module.exports = Recipe;
+//module.exports = Recipe;

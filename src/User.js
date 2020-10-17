@@ -1,4 +1,4 @@
-const Pantry = require('../src/Pantry');
+//const Pantry = require('../src/Pantry');
 
 class User {
   constructor(userInfo) {
@@ -30,4 +30,4 @@ class User {
   }
 
 }
-module.exports = User;
+//module.exports = User;

@@ -1,6 +1,6 @@
-const Recipe = require('../src/Recipe');
+//const Recipe = require('../src/Recipe');
 
-class RecipeRepo {
+class RecipesRepo {
   constructor(recipes = []) {
     this.recipesArray = recipes.map(recipe => new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags));
     this.currentRecipe;
@@ -24,4 +24,4 @@ class RecipeRepo {
     return searchingByIngredient;
   }
 }
-module.exports = RecipeRepo;
+//module.exports = RecipeRepo;
