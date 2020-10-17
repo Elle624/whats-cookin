@@ -24,28 +24,7 @@ myPantryBtn.addEventListener('click', viewMyPantry);
 //gv
 const ingredientsRepo = new IngredientRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
-const user1 = new User(usersData[0])
-
-
-function displayPantry() {
-  userName.innerHTML = 
-  `<h1>${user1.name}'s Pantry</h1>`;
-  user1.pantry.pantry.forEach(ingred => {
-    let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient)
-    userIngredients.innerHTML += 
-    `
-    <article> ${result.name} : ${ingred.amount}</article>
-    `
-  })
- 
-    // myPantryPage.innerHTML += 
-    // `<section class="pantry-page-view">
-    //   <h1>${test.name}'s Pantry</h1>
-    //   <article>ingredientName</article>
-    //   <article>${test.pantry[0].amount}</article>
-    //  </section>`
-  //})
-}
+const user1 = new User(usersData[0]);
 
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
@@ -98,17 +77,17 @@ function changeClassProperty(elements) {
 }
 
 function viewFavoriteRecipes() {
-  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true},{name: toCookPage, add: true}];
+  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true},{name: toCookPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(favSection);
 }
 
 function returnHome() {
-  let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}];
+  let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(homeSection)
 }
 
 function viewRecipesToCook() {
-  let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}];
+  let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(toCookSection)
 }
 
@@ -120,6 +99,18 @@ function viewMyPantry() {
 function filterByTags() {
   let newList = recipesRepo.recipesArray.filter(recipe => recipe.tags.includes(event.target.innerText));
   displayRecipes({recipesArray: newList});
+}
+
+function displayPantry() {
+  userName.innerHTML = 
+  `<h1>${user1.name}'s Pantry</h1>`;
+  user1.pantry.pantry.forEach(ingred => {
+    let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient)
+    userIngredients.innerHTML += 
+    `
+    <article> ${result.name} : ${ingred.amount}</article>
+    `
+  })
 }
 
 displayMainPage ();
