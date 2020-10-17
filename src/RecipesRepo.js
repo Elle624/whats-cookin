@@ -12,7 +12,7 @@ class RecipesRepo {
   // need it?
 
   searchByTag(tag) {
-    let searchingByTag = this.recipesArray.find(recipe => recipe.tags.includes(tag));
+    let searchingByTag = this.recipesArray.filter(recipe => recipe.tags.includes(tag));
    
     return searchingByTag;
   }
