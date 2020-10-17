@@ -7,8 +7,8 @@ describe('Ingredient class', () => {
   let ingredients, creamer, coffeeBeans;
   beforeEach( () => {
     ingredients = new IngredientRepo();
-    creamer = new Ingredient(624, 'creamer', 240);
-    coffeeBeans = new Ingredient(642, 'coffee beans', 610); 
+    creamer = {id: 624, name: 'creamer', cost: 240};
+    coffeeBeans = {id: 642, name: 'coffee beans', cost: 610}; 
   })
 
   describe('initialize', () => {
@@ -27,7 +27,7 @@ describe('Ingredient class', () => {
 
     it('should hold an ingredient', () => {
       ingredients = new IngredientRepo([creamer]);
-      
+
       expect(ingredients.ingredientsArray).to.deep.equal([creamer]);
     })
 
@@ -39,12 +39,6 @@ describe('Ingredient class', () => {
   }) 
 
   describe('methods', () => {
-
-    it('should return 0 at cost if there\'s no recipe', () => {
-      const cost = ingredients.calculateCostByDollar();
-      
-      expect(cost).to.equal(0);
-    })
 
     it('should calculate a cost', () => {
       ingredients = new IngredientRepo([creamer]);
@@ -69,7 +63,7 @@ describe('Ingredient class', () => {
         tags: ['add on']
       };
 
-      let totalCost = ingredients.calculateCostByDollar(recipe1);
+      let totalCost = ingredients.calculateRecipeCostByDollar(recipe1);
 
       expect(totalCost).to.equal(9.6);
     })
@@ -102,7 +96,7 @@ describe('Ingredient class', () => {
         tags: ['beverage', 'drink']
       };
 
-      let totalCost = ingredients.calculateCostByDollar(recipe2);
+      let totalCost = ingredients.calculateRecipeCostByDollar(recipe2);
 
       expect(totalCost).to.equal(53.6);
     })
@@ -120,6 +114,15 @@ describe('Ingredient class', () => {
 
       expect(id).to.equal(undefined);
     })
+
+    it('should return one ingredient\'s single cost base on the amount', () => {
+      ingredients = new IngredientRepo([creamer,coffeeBeans]);
+
+      let cost = ingredients.calculateIngCostByDollar({id: 624, amount: 2})
+
+      expect(cost).to.equal(4.8);
+    })
+
   })
 
 })

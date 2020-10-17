@@ -1,6 +1,8 @@
+const Recipe = require('../src/Recipe');
+
 class RecipeRepo {
   constructor(recipes = []) {
-    this.recipesArray = recipes;
+    this.recipesArray = recipes.map(recipe => new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags));
     this.currentRecipe;
   }
 
