@@ -170,7 +170,7 @@ function displayChosenRecipe() {
   const steps = recipesRepo.returnInstructions(chosenRecipe);
   const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
   chosenRecipeDisplay.innerHTML += 
-    `<section class="recipe-instructions">
+    `<section class="chosen-recipe">
     <img src="${chosenRecipe.image}">
     <h1 class="chosen-recipe-name">${chosenRecipe.name}</h1>
     <h2>Total cost: $${totalCost} dollar</h2>
