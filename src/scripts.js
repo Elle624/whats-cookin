@@ -11,8 +11,8 @@ const toCookPage = document.querySelector('.to-cook-page-view');
 const filterSection = document.querySelector('.filter');
 const myPantryBtn = document.querySelector('.pantry-btn');
 const myPantryPage = document.querySelector('.pantry-page-view');
-const userName = document.getElementById('user-name');
-const userIngredients = document.getElementById('user-ingredients');
+const userName = document.querySelector('.user-name');
+const userIngredients = document.querySelector('.user-ingredients');
 const searchInput = document.querySelector('input');
 const searchBtn = document.querySelector('.search-btn');
 
@@ -22,35 +22,44 @@ homeBtn.addEventListener('click', returnHome);
 toCookBtn.addEventListener('click', viewRecipesToCook);
 filterSection.addEventListener('click', filterByTags);
 myPantryBtn.addEventListener('click', viewMyPantry);
-//recipesSection.addEventListener('click', test);
+recipesSection.addEventListener('click', displayChosenRecipe);
 searchBtn.addEventListener('click', searchByIngredient);
 
 //gv
-const ingredientsRepo = new IngredientRepo(ingredientsData);
+const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 const user1 = new User(usersData[0]);
 
 
 
-// function test() {
-//   let chosenRecipe = 
-//   recipesRepo.recipesArray.find(recipe => recipe.name === event.target.innerText);
-//   recipesSection.innerHTML = '';
-//   let recipeIngredients = chosenRecipe.ingredients.map(recipeIng => {
-//     let ingName = ingredientsRepo.ingredientsArray.find(ing => ing.id === recipeIng.id);
-//     return [ingName.name,recipeIng.quantity.amount + recipeIng.quantity.unit]
-//   })
-  
-//   recipesSection.innerHTML +=
-//   `<article class="recipe-card">
-//     <img src="${chosenRecipe.image}">
-//     <h1 id="recipe-name">${chosenRecipe.name}</h1>
-//     <h1>${chosenRecipe.tags}</h1>
-//     <h2>${recipeIngredients[0]}</h2>
-    
-//   </article>`
-// }
+function displayChosenRecipe() {
+  if(event.target.className === 'recipe-name') { 
+    let chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
+    recipesSection.innerHTML = '';
+    let recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
+    let steps = recipesRepo.returnInstructions(chosenRecipe);
+    recipesSection.innerHTML +=
+    `<article class="recipe-card">
+      <img src="${chosenRecipe.image}">
+      <h1 class="recipe-name">${chosenRecipe.name}</h1>
+      <h1>${chosenRecipe.tags}</h1>
+      <section>${listRecipeIngredients(recipeIngredients)}</section>
+      <section>${listInstructions(steps)}</section>
+    </article>`
+  }
+}
 
+function listRecipeIngredients(list) {
+  let ingredientElement = '';
+  list.forEach(ing => ingredientElement += `<h3>${ing.name}:  ${ing.amount} ${ing.unit}</h3>`);
+  return ingredientElement;
+}
+
+function listInstructions(steps) {
+  let instructionElement = '';
+  steps.forEach(ins => instructionElement += `<h3>${ins.number}:  ${ins.instruction}</h3>`);
+  return instructionElement;
+}
 
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
@@ -58,7 +67,7 @@ function displayRecipes(recipes) {
     recipesSection.innerHTML +=
   `<article class="recipe-card">
     <img src="${recipeDetail.image}">
-    <h1 id="recipe-name">${recipeDetail.name}</h1>
+    <h1 class="recipe-name">${recipeDetail.name}</h1>
      <article class="recipe-btns">
       <button class="cook-and-favorite-btn"><svg width="36" height="20" viewBox="0 0 24 24" role="img" aria-hidden="true" tabindex="-1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg></button>
       <button id=${recipeDetail.id} class="cook cook-and-favorite-btn">to cook</button>
@@ -111,6 +120,7 @@ function returnHome() {
   let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(homeSection);
   displayRecipes(recipesRepo);
+  searchInput.value = '';
 }
 
 function viewRecipesToCook() {
@@ -141,8 +151,8 @@ function filterByTags() {
 }
 
 function searchByIngredient() {
-  const ingredientId = ingredientsRepo.returnId(searchInput.value);
-  const searchResult = recipesRepo.searchByIngredient(ingredientId);
+  const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
+  const searchResult = recipesRepo.searchByIngredient(ingredientIds);
   displayRecipes({recipesArray: searchResult});
 }
 
