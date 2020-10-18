@@ -13,6 +13,8 @@ const myPantryBtn = document.querySelector('.pantry-btn');
 const myPantryPage = document.querySelector('.pantry-page-view');
 const userName = document.getElementById('user-name');
 const userIngredients = document.getElementById('user-ingredients');
+const searchInput = document.querySelector('input');
+const searchBtn = document.querySelector('.search-btn');
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
@@ -21,10 +23,14 @@ toCookBtn.addEventListener('click', viewRecipesToCook);
 filterSection.addEventListener('click', filterByTags);
 myPantryBtn.addEventListener('click', viewMyPantry);
 //recipesSection.addEventListener('click', test);
+searchBtn.addEventListener('click', searchByIngredient);
+
 //gv
 const ingredientsRepo = new IngredientRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 const user1 = new User(usersData[0]);
+
+
 
 // function test() {
 //   let chosenRecipe = 
@@ -53,10 +59,10 @@ function displayRecipes(recipes) {
   `<article class="recipe-card">
     <img src="${recipeDetail.image}">
     <h1 id="recipe-name">${recipeDetail.name}</h1>
-    <article class="recipe-btns">
+     <article class="recipe-btns">
       <button class="cook-and-favorite-btn"><svg width="36" height="20" viewBox="0 0 24 24" role="img" aria-hidden="true" tabindex="-1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg></button>
-      <button class="cook-and-favorite-btn">to cook</button>
-    </article>
+      <button id=${recipeDetail.id} class="cook cook-and-favorite-btn">to cook</button>
+     </article>
   </article>`
   }) 
 }
@@ -117,11 +123,6 @@ function viewMyPantry() {
   changeClassProperty(myPantrySection)
 }
 
-function filterByTags() {
-  let newList = recipesRepo.recipesArray.filter(recipe => recipe.tags.includes(event.target.innerText));
-  displayRecipes({recipesArray: newList});
-}
-
 function displayPantry() {
   userName.innerHTML = 
   `<h1>${user1.name}'s Pantry</h1>`;
@@ -132,6 +133,17 @@ function displayPantry() {
     <article> ${result.name} : ${ingred.amount}</article>
     `
   })
+}
+
+function filterByTags() {
+  let newList = recipesRepo.searchByTag(event.target.innerText);
+  displayRecipes({recipesArray: newList});
+}
+
+function searchByIngredient() {
+  const ingredientId = ingredientsRepo.returnId(searchInput.value);
+  const searchResult = recipesRepo.searchByIngredient(ingredientId);
+  displayRecipes({recipesArray: searchResult});
 }
 
 displayMainPage ();
