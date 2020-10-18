@@ -25,5 +25,10 @@ class IngredientsRepo {
     return ingredients ? ingredients.map(ing => ing.id) : undefined;
   } 
 
+  returnName(recipeIngredient) {
+    const ingredient = this.ingredientsArray.find(ing => ing.id === recipeIngredient.id);
+    return ingredient.name;
+  }
+
 }
 //module.exports = IngredientRepo;
