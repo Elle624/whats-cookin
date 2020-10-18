@@ -9,7 +9,7 @@ class User {
     this.recipesToCook = [];
   }
   addRecipe(category, recipe) {
-    if (!this.recipesToCook.includes(recipe)) {
+    if (!this[category].includes(recipe)) {
       this[category].push(recipe);
     }
   }
