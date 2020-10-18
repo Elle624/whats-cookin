@@ -133,7 +133,7 @@ body {
   outline: none;
 }
 
-.cook-and-favorite-btn {
+.select-btns {
   width: 80px;
   margin-top: 5px;
   background-color: transparent;
@@ -141,7 +141,7 @@ body {
   outline: none;
 }
 
-.cook-and-favorite-btn:hover {
+.select-btns:hover {
   width: 80px;
   background-color:#ffaa80;
   border: 0px;
