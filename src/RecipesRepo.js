@@ -3,13 +3,11 @@
 class RecipesRepo {
   constructor(recipes = []) {
     this.recipesArray = recipes.map(recipe => new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags));
-    this.currentRecipe;
   }
 
-  returnCurrentRecipe(chosenRecipe) {
-    this.currentRecipe = chosenRecipe;
+  returnCurrentRecipe(recipeName) {
+    return this.recipesArray.find(recipe => recipe.name === recipeName);
   }
-  // need it?
 
   searchByTag(tag) {
     let searchingByTag = this.recipesArray.filter(recipe => recipe.tags.includes(tag));
