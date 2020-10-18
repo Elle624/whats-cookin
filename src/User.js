@@ -9,7 +9,9 @@ class User {
     this.recipesToCook = [];
   }
   addRecipe(category, recipe) {
-    this[category].push(recipe);
+    if(!this.recipesToCook.includes(recipe)) {
+      this[category].push(recipe);
+    }
   }
 
   filterRecipesByTag(recipeArrayName, tag) {
