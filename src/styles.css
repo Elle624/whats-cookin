@@ -183,20 +183,14 @@ img {
   height: fit-content;
 }
 
-.recipe-instructions {
+.chosen-recipe {
   width: fit-content;
   height: fit-content;
 }
 
-.recipe-instructions h1 {
+.chosen-recipe h1 {
   font-size: xx-large;
   margin-right: 85px;
-}
-
-.recipe-instructions p {
-  height: fit-content;
-  width: 400px;
-  margin: 0px;
 }
 
 .view-recipe-page-btn {

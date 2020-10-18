@@ -16,6 +16,7 @@ const userIngredients = document.querySelector('.user-ingredients');
 const searchInput = document.querySelector('input');
 const searchBtn = document.querySelector('.search-btn');
 const recipesToCookDisplay = document.querySelector('.view-recipes-to-cook');
+const chosenRecipeDisplay = document.querySelector('.chosen-recipe');
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
@@ -83,19 +84,19 @@ function changeClassProperty(elements) {
 }
 
 function viewFavoriteRecipes() {
-  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}];
+  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}, {name: chosenRecipeDisplay, add: true}];
   changeClassProperty(favSection);
 }
 
 function returnHome() {
-  let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}];
+  let homeSection = [{name: mainPage}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}, {name: chosenRecipeDisplay, add: true}];
   changeClassProperty(homeSection);
   displayRecipes(recipesRepo);
   searchInput.value = '';
 }
 
 function viewRecipesToCook() {
-  let toCookSection = [{name: toCookPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}];
+  let toCookSection = [{name: toCookPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}, {name: chosenRecipeDisplay, add: true}];
   changeClassProperty(toCookSection);
   recipesToCookDisplay.innerHTML = '';
   user1.recipesToCook.forEach(recipe => {
@@ -111,7 +112,7 @@ function viewRecipesToCook() {
 }
 
 function viewMyPantry() {
-  let myPantrySection = [{name: myPantryPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}];
+  let myPantrySection = [{name: myPantryPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}, {name: chosenRecipeDisplay, add: true}];
   changeClassProperty(myPantrySection);
 }
 
@@ -148,19 +149,20 @@ function updateRecipesSection() {
 
 function displayChosenRecipe() {
   const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
-  recipesSection.innerHTML = '';
+  chosenRecipeDisplay.innerHTML = ''
+  changeClassProperty([{name: mainPage, add: true}, {name: chosenRecipeDisplay}]);
   const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
   const steps = recipesRepo.returnInstructions(chosenRecipe);
   const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
-  recipesSection.innerHTML +=
-  `<article class="recipe-card">
+  chosenRecipeDisplay.innerHTML += 
+    `<section class="recipe-instructions">
     <img src="${chosenRecipe.image}">
-    <h1 class="recipe-name">${chosenRecipe.name}</h1>
+    <h1 class="chosen-recipe-name">${chosenRecipe.name}</h1>
     <h2>Total cost: $${totalCost} dollar</h2>
     <h2>${chosenRecipe.tags}</h2>
-    <section>${listRecipeIngredients(recipeIngredients)}</section>
-    <section>${listInstructions(steps)}</section>
-  </article>`
+    <section>Ingredients: ${listRecipeIngredients(recipeIngredients)}</section>
+    <section>Instructions: ${listInstructions(steps)}</section>
+  </section>`
 }
 
 function listRecipeIngredients(list) {
