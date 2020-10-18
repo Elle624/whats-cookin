@@ -9,6 +9,10 @@ class RecipesRepo {
     return this.recipesArray.find(recipe => recipe.name === recipeName);
   }
 
+  returnRecipeById(id) {
+    return this.recipesArray.find(recipe => recipe.id === id);
+  }
+
   returnIngredients(chosenRecipe) {
     const recipeIngredients = chosenRecipe.ingredients.map(recipeIng => {
       const ingName = ingredientsRepo.returnName(recipeIng);
