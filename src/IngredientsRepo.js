@@ -11,7 +11,7 @@ class IngredientsRepo {
       totalCost += ing.cost * ingredient.quantity.amount;
       return totalCost;
     },0)
-    return cost/100;
+    return Number.parseFloat(cost / 100).toFixed(2)
   }
 
   calculateIngCostByDollar(missIngredient) {
