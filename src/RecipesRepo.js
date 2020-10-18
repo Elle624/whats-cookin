@@ -13,15 +13,16 @@ class RecipesRepo {
 
   searchByTag(tag) {
     let searchingByTag = this.recipesArray.filter(recipe => recipe.tags.includes(tag));
-   
     return searchingByTag;
   }
 
-  searchByIngredient(id) {
+  searchByIngredient(ids) {
     let searchingByIngredient = 
     this.recipesArray.filter(recipe => {
-      return recipe.ingredients.find(ingred => ingred.id === id);
-    })
+      return recipe.ingredients.find(ing => {
+        return ids.includes(ing.id);
+      })
+    });
     return searchingByIngredient;
   }
 }
