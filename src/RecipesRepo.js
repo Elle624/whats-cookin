@@ -9,6 +9,21 @@ class RecipesRepo {
     return this.recipesArray.find(recipe => recipe.name === recipeName);
   }
 
+  returnIngredients(chosenRecipe) {
+    const recipeIngredients = chosenRecipe.ingredients.map(recipeIng => {
+      const ingName = ingredientsRepo.returnName(recipeIng);
+      return {name: ingName, amount: recipeIng.quantity.amount,  unit: recipeIng.quantity.unit};
+    });
+    return recipeIngredients;
+  }
+
+  returnInstructions(chosenRecipe) {
+    let steps = chosenRecipe.instructions.map(({number, instruction}) => {
+      return {number, instruction};
+    });
+    return steps;
+  }
+
   searchByTag(tag) {
     let searchingByTag = this.recipesArray.filter(recipe => recipe.tags.includes(tag));
     return searchingByTag;
