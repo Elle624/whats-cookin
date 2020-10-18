@@ -10,7 +10,7 @@ class IngredientsRepo {
       let ing = this.ingredientsArray.find(ingred => ingred.id === ingredient.id);
       totalCost += ing.cost * ingredient.quantity.amount;
       return totalCost;
-    },0)
+    }, 0)
     return Number.parseFloat(cost / 100).toFixed(2)
   }
 

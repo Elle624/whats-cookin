@@ -32,44 +32,6 @@ const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 const user1 = new User(usersData[0]);
 
-function updateRecipesSection() {
-  if(event.target.className.includes('recipe-name')) {
-    displayChosenRecipe();
-  } else if(event.target.className.includes('cook')) {
-    const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
-    user1.addRecipe('recipesToCook', recipe); 
-  }
-}
-
-function displayChosenRecipe() {
-    const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
-    recipesSection.innerHTML = '';
-    const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
-    const steps = recipesRepo.returnInstructions(chosenRecipe);
-    const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
-    recipesSection.innerHTML +=
-    `<article class="recipe-card">
-      <img src="${chosenRecipe.image}">
-      <h1 class="recipe-name">${chosenRecipe.name}</h1>
-      <h2>Total cost: $${totalCost} dollar</h2>
-      <h2>${chosenRecipe.tags}</h2>
-      <section>${listRecipeIngredients(recipeIngredients)}</section>
-      <section>${listInstructions(steps)}</section>
-    </article>`
-}
-
-function listRecipeIngredients(list) {
-  let ingredientElement = '';
-  list.forEach(ing => ingredientElement += `<h3>${ing.name}:  ${ing.amount} ${ing.unit}</h3>`);
-  return ingredientElement;
-}
-
-function listInstructions(steps) {
-  let instructionElement = '';
-  steps.forEach(ins => instructionElement += `<h3>${ins.number}:  ${ins.instruction}</h3>`);
-  return instructionElement;
-}
-
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
   recipes.recipesArray.forEach(recipeDetail => {
@@ -88,7 +50,7 @@ function displayRecipes(recipes) {
 function createTagsOption() {
   return recipesRepo.recipesArray.reduce((tagsList, recipe) => {
     recipe.tags.forEach((tag) => {
-      if(!tagsList.includes(tag)) {
+      if (!tagsList.includes(tag)) {
         tagsList.push(tag)
       }
     })
@@ -121,7 +83,7 @@ function changeClassProperty(elements) {
 }
 
 function viewFavoriteRecipes() {
-  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true},{name: toCookPage, add: true}, {name: myPantryPage, add: true}];
+  let favSection = [{name: favRecipesPage}, {name: mainPage, add: true}, {name: toCookPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(favSection);
 }
 
@@ -133,7 +95,7 @@ function returnHome() {
 }
 
 function viewRecipesToCook() {
-  let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}];
+  let toCookSection = [{name: toCookPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}];
   changeClassProperty(toCookSection);
   recipesToCookDisplay.innerHTML = '';
   user1.recipesToCook.forEach(recipe => {
@@ -145,12 +107,11 @@ function viewRecipesToCook() {
       <button class="cook-and-favorite-btn">remove</button>
     </article>
     `
-  })
-  
+  }); 
 }
 
 function viewMyPantry() {
-  let myPantrySection = [{name: myPantryPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true},{name: toCookPage, add: true}];
+  let myPantrySection = [{name: myPantryPage}, {name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: toCookPage, add: true}];
   changeClassProperty(myPantrySection);
 }
 
@@ -158,12 +119,10 @@ function displayPantry() {
   userName.innerHTML = 
   `<h1>${user1.name}'s Pantry</h1>`;
   user1.pantry.pantry.forEach(ingred => {
-    let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient)
+    let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient);
     userIngredients.innerHTML += 
-    `
-    <article> ${result.name} : ${ingred.amount}</article>
-    `
-  })
+    `<article> ${result.name} : ${ingred.amount}</article>`
+  });
 }
 
 function filterByTags() {
@@ -175,6 +134,45 @@ function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
   const searchResult = recipesRepo.searchByIngredient(ingredientIds);
   displayRecipes({recipesArray: searchResult});
+}
+
+
+function updateRecipesSection() {
+  if (event.target.className.includes('recipe-name')) {
+    displayChosenRecipe();
+  } else if (event.target.className.includes('cook')) {
+    const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
+    user1.addRecipe('recipesToCook', recipe); 
+  }
+}
+
+function displayChosenRecipe() {
+  const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
+  recipesSection.innerHTML = '';
+  const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
+  const steps = recipesRepo.returnInstructions(chosenRecipe);
+  const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
+  recipesSection.innerHTML +=
+  `<article class="recipe-card">
+    <img src="${chosenRecipe.image}">
+    <h1 class="recipe-name">${chosenRecipe.name}</h1>
+    <h2>Total cost: $${totalCost} dollar</h2>
+    <h2>${chosenRecipe.tags}</h2>
+    <section>${listRecipeIngredients(recipeIngredients)}</section>
+    <section>${listInstructions(steps)}</section>
+  </article>`
+}
+
+function listRecipeIngredients(list) {
+  let ingredientElement = '';
+  list.forEach(ing => ingredientElement += `<h3>${ing.name}:  ${ing.amount} ${ing.unit}</h3>`);
+  return ingredientElement;
+}
+
+function listInstructions(steps) {
+  let instructionElement = '';
+  steps.forEach(ins => instructionElement += `<h3>${ins.number}:  ${ins.instruction}</h3>`);
+  return instructionElement;
 }
 
 displayMainPage ();
