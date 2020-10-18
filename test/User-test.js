@@ -7,11 +7,15 @@ describe('User class', () => {
   let userElle, applePie, beefNoodle;
 
   beforeEach(() => {
-    userElle = new User('Elle', 1, [
+    userElle = new User({
+      name: 'Elle', 
+      id: 1, 
+      pantry: [
         {ingredient: 320, amount: 6}, 
         {ingredient: 624, amount: 10}, 
         {ingredient: 620, amount: 8}
-      ]);
+      ]
+    });
     
     applePie = {
       id: 1, 

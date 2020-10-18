@@ -24,7 +24,7 @@ class Pantry {
   removeIngredients(recipe) {
     this.pantry.map(pantryIng => {
       recipe.ingredients.forEach(recipeIng => {
-        if(recipeIng.id === pantryIng.ingredient) {
+        if (recipeIng.id === pantryIng.ingredient) {
           pantryIng.amount -= recipeIng.quantity.amount;
         }
       });
@@ -32,4 +32,4 @@ class Pantry {
   }
 
 }
-module.exports = Pantry;
+//module.exports = Pantry;

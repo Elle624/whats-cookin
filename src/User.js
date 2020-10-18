@@ -1,15 +1,17 @@
-const Pantry = require('../src/Pantry');
+//const Pantry = require('../src/Pantry');
 
 class User {
-  constructor(name, id, pantry) {
-    this.name = name;
-    this.id = id;
-    this.pantry = new Pantry(pantry);
+  constructor(userInfo) {
+    this.name = userInfo.name;
+    this.id = userInfo.id;
+    this.pantry = new Pantry(userInfo.pantry);
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
   addRecipe(category, recipe) {
-    this[category].push(recipe);
+    if (!this.recipesToCook.includes(recipe)) {
+      this[category].push(recipe);
+    }
   }
 
   filterRecipesByTag(recipeArrayName, tag) {
@@ -30,4 +32,4 @@ class User {
   }
 
 }
-module.exports = User;
+//module.exports = User;

@@ -6,6 +6,8 @@ class Recipe {
     this.instructions = instructions;
     this.name = name;
     this.tags = tags;
+    this.favorite = false;
+    this.toCook = false;
   }
 }
-module.exports = Recipe;
+//module.exports = Recipe;
