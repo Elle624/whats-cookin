@@ -15,38 +15,47 @@ const userName = document.querySelector('.user-name');
 const userIngredients = document.querySelector('.user-ingredients');
 const searchInput = document.querySelector('input');
 const searchBtn = document.querySelector('.search-btn');
+const recipesToCookDisplay = document.querySelector('.view-recipes-to-cook');
 
 //eventlisteners
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
 homeBtn.addEventListener('click', returnHome);
 toCookBtn.addEventListener('click', viewRecipesToCook);
 filterSection.addEventListener('click', filterByTags);
-myPantryBtn.addEventListener('click', viewMyPantry);
-recipesSection.addEventListener('click', displayChosenRecipe);
 searchBtn.addEventListener('click', searchByIngredient);
+myPantryBtn.addEventListener('click', viewMyPantry);
+recipesSection.addEventListener('click', updateRecipesSection);
+
 
 //gv
 const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 const user1 = new User(usersData[0]);
 
-
+function updateRecipesSection() {
+  if(event.target.className.includes('recipe-name')) {
+    displayChosenRecipe();
+  } else if(event.target.className.includes('cook')) {
+    const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
+    user1.addRecipe('recipesToCook', recipe); 
+  }
+}
 
 function displayChosenRecipe() {
-  if(event.target.className === 'recipe-name') { 
-    let chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
+    const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
     recipesSection.innerHTML = '';
-    let recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
-    let steps = recipesRepo.returnInstructions(chosenRecipe);
+    const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
+    const steps = recipesRepo.returnInstructions(chosenRecipe);
+    const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
     recipesSection.innerHTML +=
     `<article class="recipe-card">
       <img src="${chosenRecipe.image}">
       <h1 class="recipe-name">${chosenRecipe.name}</h1>
-      <h1>${chosenRecipe.tags}</h1>
+      <h2>Total cost: $${totalCost} dollar</h2>
+      <h2>${chosenRecipe.tags}</h2>
       <section>${listRecipeIngredients(recipeIngredients)}</section>
       <section>${listInstructions(steps)}</section>
     </article>`
-  }
 }
 
 function listRecipeIngredients(list) {
@@ -125,12 +134,24 @@ function returnHome() {
 
 function viewRecipesToCook() {
   let toCookSection = [{name: toCookPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true}, {name: myPantryPage, add: true}];
-  changeClassProperty(toCookSection)
+  changeClassProperty(toCookSection);
+  recipesToCookDisplay.innerHTML = '';
+  user1.recipesToCook.forEach(recipe => {
+    recipesToCookDisplay.innerHTML += 
+    `
+    <article class="recipe-card">
+      <img src=${recipe.image}>
+      <h1>${recipe.name}</h1>
+      <button class="cook-and-favorite-btn">remove</button>
+    </article>
+    `
+  })
+  
 }
 
 function viewMyPantry() {
   let myPantrySection = [{name: myPantryPage},{name: mainPage, add: true}, {name: favRecipesPage, add: true},{name: toCookPage, add: true}];
-  changeClassProperty(myPantrySection)
+  changeClassProperty(myPantrySection);
 }
 
 function displayPantry() {
