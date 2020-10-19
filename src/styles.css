@@ -101,7 +101,7 @@ body {
     justify-content: space-evenly;
 }
 
-.all-cards {
+.recipe-page-view {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
