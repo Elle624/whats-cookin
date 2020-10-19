@@ -55,10 +55,10 @@ function createTagsOption() {
   return recipesRepo.recipesArray.reduce((tagsList, recipe) => {
     recipe.tags.forEach((tag) => {
       if (!tagsList.includes(tag)) {
-        tagsList.push(tag)
+        tagsList.push(tag);
       }
     })
-    return tagsList
+    return tagsList;
   }, [])
 }
 
@@ -70,7 +70,7 @@ function displayTagsOption() {
   })
 }
 
-function displayMainPage () {
+function displayMainPage() {
   displayTagsOption();
   displayRecipes(recipesRepo);
   recipesSectionTitle.innerText = `Wecome to what\'s cookin ${user1.name}!`;
@@ -79,6 +79,7 @@ function displayMainPage () {
 function generateRondomNum(list) {
   return Math.floor(Math.random() * list.length);
 }
+
 function changeUser() {
   const num = generateRondomNum(usersData);
   user1 = new User(usersData[num]);
@@ -90,7 +91,7 @@ function changeHiddenProperty(elements) {
     if (element.addHidden) {
       (element.name).classList.add('hidden');
     } else {
-      (element.name).classList.remove('hidden')
+      (element.name).classList.remove('hidden');
     }
   })
 }
@@ -176,7 +177,6 @@ function searchByIngredient() {
   }
     searchInput.value = '';
 }
-
 
 function updateRecipesSection() {
   if (event.target.className.includes('recipe-name')) {
