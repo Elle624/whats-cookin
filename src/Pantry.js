@@ -25,8 +25,9 @@ class Pantry {
     this.pantry.map(pantryIng => {
       recipe.ingredients.forEach(recipeIng => {
         if (recipeIng.id === pantryIng.ingredient) {
-          pantryIng.amount -= recipeIng.quantity.amount;
+          pantryIng.amount -= Number.parseFloat(recipeIng.quantity.amount).toFixed(2);
         }
+        pantryIng.amount < 0? pantryIng.amount = 0 : pantryIng.amount;
       });
     });
   }
