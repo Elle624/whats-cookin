@@ -21,7 +21,7 @@ const favRecipesDisplay = document.querySelector('.view-fav-recipes');
 const chosenRecipeDisplay = document.querySelector('.chosen-recipe');
 let pageChecking = 'all';
 
-//eventlisteners
+
 homeBtn.addEventListener('click', returnHome);
 usersBtn.addEventListener('click', changeUser);
 favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
@@ -32,7 +32,6 @@ filterSection.addEventListener('click', filterByTags);
 recipesSection.addEventListener('click', updateRecipesSection);
 
 
-//gv
 const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 let user1 = new User(usersData[0]);
@@ -43,7 +42,7 @@ function displayRecipes(recipes) {
     recipesSection.innerHTML +=
   `<article class="recipe-card">
     <img src="${recipeDetail.image}">
-    <h1 class="recipe-name">${recipeDetail.name}</h1>
+    <h1 class="recipe-name" style="cursor: pointer">${recipeDetail.name}</h1>
      <article class="recipe-btns">
       <button id=${recipeDetail.id} class="fav select-btns">favorite</button>
       <button id=${recipeDetail.id} class="cook select-btns">to cook</button>
