@@ -105,7 +105,6 @@ function generateRecipeCardsHTML(recipes, title = '') {
     <article class="recipe-card">
       <img src=${recipe.image}>
       <h1 class="recipe-name">${recipe.name}</h1>
-      <button class="select-btns">remove</button>
     </article>
     `
   })  
