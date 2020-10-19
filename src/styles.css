@@ -90,6 +90,8 @@ body {
 .recipe-card h1 {
   font-size: medium;
   margin: 5px;
+  display: flex;
+  text-align: -webkit-center;
 }
 
 .main-page {
