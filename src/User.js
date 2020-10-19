@@ -19,14 +19,15 @@ class User {
   }
 
   searchFavoriteByName(name) {
-    let searchingByName = this.favoriteRecipes.find(recipe => recipe.name === name);
+    name = name.toLowerCase();
+    let searchingByName = this.favoriteRecipes.filter(recipe => recipe.name.includes(name));
     return searchingByName;
   }
 
-  searchFavoriteByIngredient(id) {
+  searchFavoriteByIngredient(ids) {
     let searchingByIngredient = 
     this.favoriteRecipes.filter(recipe => {
-      return recipe.ingredients.find(ingred => ingred.id === id);
+      return recipe.ingredients.find(ingred => ids.includes(ingred.id));
     })
     return searchingByIngredient;
   }
