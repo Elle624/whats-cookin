@@ -1,4 +1,3 @@
-
 const mainPage = document.querySelector('.main-page');
 const filterSection = document.querySelector('.filter');
 const searchBtn = document.querySelector('.search-btn');
