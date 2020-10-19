@@ -16,7 +16,7 @@ class IngredientsRepo {
 
   calculateIngCostByDollar(missIngredient) {
     let singleCost = this.ingredientsArray.filter(ingredient => ingredient.id === missIngredient.id);
-    return singleCost[0].cost * missIngredient.amount / 100;
+    return Number.parseFloat(singleCost[0].cost * missIngredient.amount / 100).toFixed(2);
   }
 
   returnIds(ingredientName) {
