@@ -220,7 +220,7 @@ function displayChosenRecipe() {
           <h2>${chosenRecipe.tags}</h2>
         </section>
       </div>
-      <section class="recipe-missing-ingredient">
+      <section class="recipe-missing-ingredient"> 
         <h1> You are missing: </h1>
         <h3>${listMissingIngredients(displayMissingIng)}</h3>
       </section>
