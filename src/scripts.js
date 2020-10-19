@@ -158,9 +158,16 @@ function filterByTags(event) {
 
 function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
-  const searchResult = recipesRepo.searchByIngredient(ingredientIds);
-  displayRecipes({recipesArray: searchResult});
-  searchInput.value = '';
+  if(pageChecking === 'all') {
+    const searchResult = recipesRepo.searchByIngredient(ingredientIds);
+    displayRecipes({recipesArray: searchResult});
+  } else if (pageChecking === 'fav') {
+    const searchByIng = user1.searchFavoriteByIngredient(ingredientIds);
+    const searchByName = user1.searchFavoriteByName(searchInput.value)
+    ingredientIds.length > 0? 
+    generateRecipeCardsHTML(searchByIng) : generateRecipeCardsHTML(searchByName)
+  }
+    searchInput.value = '';
 }
 
 
