@@ -38,6 +38,7 @@ const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 const user1 = new User(usersData[0]);
 
+
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
   recipes.recipesArray.forEach(recipeDetail => {
@@ -110,7 +111,7 @@ function showRecipeCards() {
 function returnHome() {
   showRecipeCards()
   displayRecipes(recipesRepo);
-  recipesSectionTitle.innerText = 'Check out Recipes!';
+  recipesSectionTitle.innerText = 'Wecome to what\'s cookin!';
   pageChecking = 'all';
 }
 
@@ -137,7 +138,7 @@ function displayPantry() {
   user1.pantry.pantry.forEach(ingred => {
     let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient);
     userIngredients.innerHTML += 
-    `<article> ${result.name} : ${ingred.amount}</article>`
+    `<article class="pantry-item"> ${result.name} : ${ingred.amount}</article>`
   });
 }
 
@@ -180,7 +181,7 @@ function hideRecipeCards() {
 }
 
 function displayChosenRecipe() {
-  hideRecipeCards()
+  hideRecipeCards();
   changeClassProperty([{name: myPantryPage, add: true}]);
   const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
   chosenRecipeDisplay.innerHTML = ''
@@ -188,15 +189,30 @@ function displayChosenRecipe() {
   const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
   const steps = recipesRepo.returnInstructions(chosenRecipe);
   const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
+  const shortList = user1.pantry.compareIngredients(chosenRecipe);
+  const displayMissingIng = user1.pantry.reviewMissingIngredients(shortList);
+  
   chosenRecipeDisplay.innerHTML += 
     `<section class="chosen-recipe">
     <img src="${chosenRecipe.image}">
     <h1 class="chosen-recipe-name">${chosenRecipe.name}</h1>
-    <h2>Total cost: $${totalCost} dollar</h2>
+    <section> You are missing: ${listMissingIngredients(displayMissingIng)} </section>
+    <h2>Total cost: ${totalCost} dollar</h2>
     <h2>${chosenRecipe.tags}</h2>
     <section>Ingredients: ${listRecipeIngredients(recipeIngredients)}</section>
     <section>Instructions: ${listInstructions(steps)}</section>
   </section>`
+}
+
+function listMissingIngredients(shortList) {
+  let missingIngredientsElement = '';
+  shortList.forEach(ing => {
+    missingIngredientsElement += 
+    `
+    <h2>${ing.amount} ${ing.unit} of ${ingredientsRepo.returnName(ing)}</h2>
+    `
+  })
+  return missingIngredientsElement;
 }
 
 function listRecipeIngredients(list) {
