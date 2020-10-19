@@ -124,7 +124,7 @@ function viewFavoriteRecipes() {
 function viewRecipesToCook() {
   showRecipeCards();
   generateRecipeCardsHTML(user1.recipesToCook, 'Recipes to Cook');
-  pageChecking = 'cook'
+  pageChecking = 'cook';
 }
 
 function viewMyPantry() {
@@ -133,6 +133,7 @@ function viewMyPantry() {
 }
 
 function displayPantry() {
+  userIngredients.innerHTML = '';
   userName.innerHTML = 
   `<h1>${user1.name}'s Pantry</h1>`;
   user1.pantry.pantry.forEach(ingred => {
@@ -169,6 +170,7 @@ function updateRecipesSection() {
   } else if (event.target.className.includes('cook')) {
     const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
     user1.addRecipe('recipesToCook', recipe); 
+    user1.pantry.removeIngredients(recipe);
   } else if(event.target.className.includes('fav')) {
     const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
     user1.addRecipe('favoriteRecipes', recipe); 
@@ -204,17 +206,6 @@ function displayChosenRecipe() {
   </section>`
 }
 
-function listMissingIngredients(shortList) {
-  let missingIngredientsElement = '';
-  shortList.forEach(ing => {
-    missingIngredientsElement += 
-    `
-    <h2>${ing.amount} ${ing.unit} of ${ingredientsRepo.returnName(ing)}</h2>
-    `
-  })
-  return missingIngredientsElement;
-}
-
 function listRecipeIngredients(list) {
   let ingredientElement = '';
   list.forEach(ing => ingredientElement += `<h3>${ing.name}:  ${ing.amount} ${ing.unit}</h3>`);
@@ -225,6 +216,17 @@ function listInstructions(steps) {
   let instructionElement = '';
   steps.forEach(ins => instructionElement += `<h3>${ins.number}:  ${ins.instruction}</h3>`);
   return instructionElement;
+}
+
+function listMissingIngredients(shortList) {
+  let missingIngredientsElement = '';
+  shortList.forEach(ing => {
+    missingIngredientsElement += 
+    `
+    <h2>${ing.amount} ${ing.unit} of ${ingredientsRepo.returnName(ing)}</h2>
+    `
+  })
+  return missingIngredientsElement;
 }
 
 displayMainPage ();
