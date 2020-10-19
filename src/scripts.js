@@ -211,14 +211,26 @@ function displayChosenRecipe() {
   
   chosenRecipeDisplay.innerHTML += 
     `<section class="chosen-recipe">
-    <img src="${chosenRecipe.image}">
-    <h1 class="chosen-recipe-name">${chosenRecipe.name}</h1>
-    <section> You are missing: ${listMissingIngredients(displayMissingIng)} </section>
-    <h2>Total cost: ${totalCost} dollar</h2>
-    <h2>${chosenRecipe.tags}</h2>
-    <section>Ingredients: ${listRecipeIngredients(recipeIngredients)}</section>
-    <section>Instructions: ${listInstructions(steps)}</section>
-  </section>`
+      <div class="expanded-recipe">
+        <img src="${chosenRecipe.image}">
+        <section class="expanded-title-cost">
+          <h1>${chosenRecipe.name}</h1>
+          <h2>Total cost: $${totalCost}</h2>
+          <h2>${chosenRecipe.tags}</h2>
+        </section>
+      </div>
+      <section class="recipe-missing-ingredient"> 
+        <h1> You are missing: </h1>
+        <h3>${listMissingIngredients(displayMissingIng)}</h3>
+      </section>
+      <section class="ingredients-needed">
+        <h1>Ingredients: </h1>
+        <ul>${listRecipeIngredients(recipeIngredients)}</ul>
+      </section>
+      <section class="expanded-recipe-instructions">
+        <h1>Instructions: </h1> 
+        ${listInstructions(steps)}</section>
+    </section>`
 }
 
 function listRecipeIngredients(list) {
@@ -238,7 +250,7 @@ function listMissingIngredients(shortList) {
   shortList.forEach(ing => {
     missingIngredientsElement += 
     `
-    <h2>${ing.amount} ${ing.unit} of ${ingredientsRepo.returnName(ing)}</h2>
+    <h2>${ing.amount} ${ing.unit} of ${ingredientsRepo.returnName(ing)} cost: $${ingredientsRepo.calculateIngCostByDollar(ing)}</h2>
     `
   })
   return missingIngredientsElement;
