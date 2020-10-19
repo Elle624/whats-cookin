@@ -1,16 +1,14 @@
 //const User = require('../src/User');
 
 const recipesSectionTitle = document.querySelector('.all-cards h1');
-
 const recipesSection = document.querySelector('.recipe-page-view');
 const tagsSection = document.querySelector('.tags');
 const favRecipesBtn = document.querySelector('.fav-recipes-btn');
-//const favRecipesPage = document.querySelector('.favorites-page-view');
 const mainPage = document.querySelector('.main-page');
 const mainPageWithoutFilter = document.querySelector('.main-page-without-filter');
 const homeBtn = document.querySelector('.home-btn');
 const toCookBtn = document.querySelector('.to-cook-btn');
-//const toCookPage = document.querySelector('.to-cook-page-view');
+const usersBtn = document.querySelector('.users-btn');
 const filterSection = document.querySelector('.filter');
 const myPantryBtn = document.querySelector('.pantry-btn');
 const myPantryPage = document.querySelector('.pantry-page-view');
@@ -24,20 +22,20 @@ const chosenRecipeDisplay = document.querySelector('.chosen-recipe');
 let pageChecking = 'all';
 
 //eventlisteners
-favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
 homeBtn.addEventListener('click', returnHome);
+usersBtn.addEventListener('click', changeUser);
+favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
 toCookBtn.addEventListener('click', viewRecipesToCook);
-filterSection.addEventListener('click', filterByTags);
-searchBtn.addEventListener('click', searchByIngredient);
 myPantryBtn.addEventListener('click', viewMyPantry);
+searchBtn.addEventListener('click', searchByIngredient);
+filterSection.addEventListener('click', filterByTags);
 recipesSection.addEventListener('click', updateRecipesSection);
 
 
 //gv
 const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
-const user1 = new User(usersData[0]);
-
+let user1 = new User(usersData[0]);
 
 function displayRecipes(recipes) {
   recipesSection.innerHTML = ''
@@ -76,11 +74,21 @@ function displayTagsOption() {
 function displayMainPage () {
   displayTagsOption();
   displayRecipes(recipesRepo);
+  recipesSectionTitle.innerText = `Wecome to what\'s cookin ${user1.name}!`;
 }
 
-function changeClassProperty(elements) {
+function generateRondomNum(list) {
+  return Math.floor(Math.random() * list.length);
+}
+function changeUser() {
+  const num = generateRondomNum(usersData);
+  user1 = new User(usersData[num]);
+  returnHome();
+}
+
+function changeHiddenProperty(elements) {
   elements.forEach(element => {
-    if (element.add) {
+    if (element.addHidden) {
       (element.name).classList.add('hidden');
     } else {
       (element.name).classList.remove('hidden')
@@ -104,14 +112,14 @@ function generateRecipeCardsHTML(recipes, title = '') {
 }
 
 function showRecipeCards() {
-  let homeSection = [{name: mainPage}, {name: recipesSection}, {name: myPantryPage, add: true} , {name: chosenRecipeDisplay, add: true}];
-  changeClassProperty(homeSection);
+  let homeSection = [{name: mainPage}, {name: recipesSection}, {name: myPantryPage, addHidden: true} , {name: chosenRecipeDisplay, addHidden: true}];
+  changeHiddenProperty(homeSection);
 }
 
 function returnHome() {
   showRecipeCards()
   displayRecipes(recipesRepo);
-  recipesSectionTitle.innerText = 'Wecome to what\'s cookin!';
+  recipesSectionTitle.innerText = `Wecome to what\'s cookin ${user1.name}!`;
   pageChecking = 'all';
 }
 
@@ -128,7 +136,7 @@ function viewRecipesToCook() {
 }
 
 function viewMyPantry() {
-  changeClassProperty([{name: mainPage, add: true}, {name: mainPageWithoutFilter}, {name: myPantryPage}, {name: chosenRecipeDisplay, add: true}]);
+  changeHiddenProperty([{name: mainPage, addHidden: true}, {name: mainPageWithoutFilter}, {name: myPantryPage}, {name: chosenRecipeDisplay, addHidden: true}]);
   displayPantry();
 }
 
@@ -158,9 +166,16 @@ function filterByTags(event) {
 
 function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
-  const searchResult = recipesRepo.searchByIngredient(ingredientIds);
-  displayRecipes({recipesArray: searchResult});
-  searchInput.value = '';
+  if(pageChecking === 'all') {
+    const searchResult = recipesRepo.searchByIngredient(ingredientIds);
+    displayRecipes({recipesArray: searchResult});
+  } else if (pageChecking === 'fav') {
+    const searchByIng = user1.searchFavoriteByIngredient(ingredientIds);
+    const searchByName = user1.searchFavoriteByName(searchInput.value)
+    ingredientIds.length > 0? 
+    generateRecipeCardsHTML(searchByIng) : generateRecipeCardsHTML(searchByName)
+  }
+    searchInput.value = '';
 }
 
 
@@ -178,16 +193,16 @@ function updateRecipesSection() {
 }
 
 function hideRecipeCards() {
-  let elements = [{name: mainPage, add: true}, {name: mainPageWithoutFilter}];
-  changeClassProperty(elements);
+  let elements = [{name: mainPage, addHidden: true}, {name: mainPageWithoutFilter}];
+  changeHiddenProperty(elements);
 }
 
 function displayChosenRecipe() {
   hideRecipeCards();
-  changeClassProperty([{name: myPantryPage, add: true}]);
+  changeHiddenProperty([{name: myPantryPage, addHidden: true}]);
   const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
   chosenRecipeDisplay.innerHTML = ''
-  changeClassProperty([{name: chosenRecipeDisplay}]);
+  changeHiddenProperty([{name: chosenRecipeDisplay}]);
   const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
   const steps = recipesRepo.returnInstructions(chosenRecipe);
   const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
