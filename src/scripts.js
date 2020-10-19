@@ -18,7 +18,6 @@ searchBtn.addEventListener('click', searchByIngredient);
 filterSection.addEventListener('click', filterByTags);
 recipesSection.addEventListener('click', updateRecipesSection);
 
-//gv
 const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 let user1 = new User(usersData[0]);
@@ -43,7 +42,7 @@ function createTagsOption() {
     recipe.tags.forEach((tag) => {
       if (!tagsList.includes(tag)) {
         tagsList.push(tag);
-      }
+      };
     });
     return tagsList;
   }, []);
@@ -57,7 +56,7 @@ function displayTagsOption() {
   })
 }
 
-function displayMainPage () {
+function displayMainPage() {
   displayTagsOption();
   createRecipeCardsHTML(recipesRepo);
   recipesSectionTitle.innerText = `Wecome to What's Cookin ${user1.name}!`;
@@ -80,6 +79,7 @@ function displayAPage() {
 function generateRondomNum(list) {
   return Math.floor(Math.random() * list.length);
 }
+
 function changeUser() {
   const num = generateRondomNum(usersData);
   user1 = new User(usersData[num]);
@@ -91,7 +91,7 @@ function changeHiddenProperty(elements) {
     if (element.addHidden) {
       (element.name).classList.add('hidden');
     } else {
-      (element.name).classList.remove('hidden')
+      (element.name).classList.remove('hidden');
     }
   })
 }
@@ -117,7 +117,6 @@ function generateUserRecipeCardsHTML(recipes, title = '') {
     <article class="recipe-card">
       <img src=${recipe.image}>
       <h1 class="recipe-name" style="cursor: pointer">${recipe.name}</h1>
-      <button class="select-btns">remove</button>
     </article>
     `
   })  
@@ -182,7 +181,6 @@ function searchByIngredient() {
   }
   searchInput.value = '';
 }
-
 
 function updateRecipesSection() {
   if (event.target.className.includes('recipe-name')) {
