@@ -177,7 +177,7 @@ function searchByIngredient() {
     const searchByIng = user1.searchFavoriteByIngredient(ingredientIds);
     const searchByName = user1.searchFavoriteByName(searchInput.value)
     ingredientIds.length > 0 ? 
-      generateUserRecipeCardsHTML(searchByIng) : generatUsereRecipeCardsHTML(searchByName)
+      generateUserRecipeCardsHTML(searchByIng) : generateUserRecipeCardsHTML(searchByName)
   }
   searchInput.value = '';
 }
