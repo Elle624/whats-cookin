@@ -2,7 +2,14 @@
 
 class RecipesRepo {
   constructor(recipes = []) {
-    this.recipesArray = recipes.map(recipe => new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags));
+    this.recipesArray = recipes.map(recipe => new Recipe(
+      recipe.id, 
+      recipe.image, 
+      recipe.ingredients, 
+      recipe.instructions, 
+      recipe.name, 
+      recipe.tags 
+    ));
   }
 
   returnCurrentRecipe(recipeName) {
@@ -16,7 +23,7 @@ class RecipesRepo {
   returnIngredients(chosenRecipe) {
     const recipeIngredients = chosenRecipe.ingredients.map(recipeIng => {
       const ingName = ingredientsRepo.returnName(recipeIng);
-      return {name: ingName, amount: recipeIng.quantity.amount,  unit: recipeIng.quantity.unit};
+      return {name: ingName, amount: recipeIng.quantity.amount, unit: recipeIng.quantity.unit};
     });
     return recipeIngredients;
   }
@@ -36,9 +43,7 @@ class RecipesRepo {
   searchByIngredient(ids) {
     let searchingByIngredient = 
     this.recipesArray.filter(recipe => {
-      return recipe.ingredients.find(ing => {
-        return ids.includes(ing.id);
-      })
+      return recipe.ingredients.find(ing => ids.includes(ing.id));
     });
     return searchingByIngredient;
   }
