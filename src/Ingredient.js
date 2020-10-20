@@ -7,4 +7,4 @@ class Ingredient {
 
 }
 
-//module.exports = Ingredient;
+module.exports = Ingredient;
