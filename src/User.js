@@ -28,7 +28,7 @@ class User {
     let searchingByIngredient = 
     this.favoriteRecipes.filter(recipe => {
       return recipe.ingredients.find(ingred => ids.includes(ingred.id));
-    })
+    });
     return searchingByIngredient;
   }
 
