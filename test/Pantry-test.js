@@ -71,7 +71,13 @@ describe('Pantry class', () => {
       
     })
 
-    it('should re arrange missing ingredients in a new object', () => {
+    it('should return an empty array if no missing ingredients', () => {
+      const result = ellePantry.reviewMissingIngredients();
+
+      expect(result).to.deep.equal([]);
+    })
+
+    it('should re-arrange missing ingredients in a new object with missing amount', () => {
       const recipe = {ingredients: [
         {id: 11, quantity: {amount: 2, unit: 'tbs'}},
         {id: 22, quantity: {amount: 10, unit: 'lbs'}},
@@ -98,6 +104,17 @@ describe('Pantry class', () => {
       ellePantry.removeIngredients(recipe);
     
       expect(ellePantry.pantry[0]).to.deep.equal({ingredient: 11, amount: 0});
+    })
+
+    it('should return zero when pantry is running out of that ingredient', () => {
+      const recipe = {ingredients: [
+        {id: 11, quantity: {amount: 6, unit: 'tbs'}},
+        {id: 22, quantity: {amount: 50, unit: 'lbs'}}
+      ]};
+
+      ellePantry.removeIngredients(recipe);
+    
+      expect(ellePantry.pantry[1]).to.deep.equal({ingredient: 22, amount: 0});
     })
   })
 
