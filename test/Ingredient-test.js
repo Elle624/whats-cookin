@@ -28,8 +28,8 @@ describe('Ingredient class', () => {
       expect(coffeeBeans.name).to.equal('coffee beans');
     })
 
-    it('should have a cost', () => {
-      expect(creamer.cost).to.equal(240);
+    it('should have a estimate cost', () => {
+      expect(creamer.estimatedCostInCents).to.equal(240);
     })
 
   }) 

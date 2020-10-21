@@ -8,7 +8,7 @@ class IngredientsRepo {
   calculateRecipeCostByDollar(chosenRecipe) {
     let cost = chosenRecipe.ingredients.reduce((totalCost, ingredient) => {
       let ing = this.ingredientsArray.find(ingred => ingred.id === ingredient.id);
-      totalCost += ing.cost * ingredient.quantity.amount;
+      totalCost += ing.estimatedCostInCents * ingredient.quantity.amount;
       return totalCost;
     }, 0)
     return Number.parseFloat(cost / 100).toFixed(2);
@@ -16,14 +16,14 @@ class IngredientsRepo {
 
   calculateIngCostByDollar(missIngredient) {
     let singleCost = this.ingredientsArray.filter(ingredient => ingredient.id === missIngredient.id);
-    let totalCost = singleCost[0].cost * missIngredient.amount / 100;
+    let totalCost = singleCost[0].estimatedCostInCents * missIngredient.amount / 100;
     return Number.parseFloat(totalCost).toFixed(2);
   }
 
   returnIds(ingredientName) {
     ingredientName = ingredientName.toLowerCase();
     let ingredients = this.ingredientsArray.filter(ingre => ingre.name.includes(ingredientName));
-    return ingredients ? ingredients.map(ing => ing.id) : undefined;
+    return ingredients.map(ing => ing.id);
   } 
 
   returnName(recipeIngredient) {
@@ -32,4 +32,4 @@ class IngredientsRepo {
   }
 
 }
-//module.exports = IngredientRepo;
+//module.exports = IngredientsRepo;
