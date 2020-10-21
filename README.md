@@ -28,7 +28,16 @@ Objective - Create HTML, add classes to elements, add styling to styles.css
   - Recipe view page
   - Users Favorite Recipes Page 
   
-  ### Iteration 2 - DOM Manipulation 
-  Objective - Add functionality to buttons and be able to change pages based on buttons
+### Iteration 2 - DOM Manipulation 
+Objective - Add functionality to buttons and be able to change pages based on buttons
+- Buttons in nav bar
+  - Search 
+  - To cook
+  - Favorite recipes
+  - Users
+  - My Pantry
+- Methods created for button functionality
+
+### Iteration 3 - TDD Creation
   
 
