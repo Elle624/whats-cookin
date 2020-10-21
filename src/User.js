@@ -1,4 +1,4 @@
-//const Pantry = require('../src/Pantry');
+const Pantry = require('../src/Pantry');
 
 class User {
   constructor(userInfo) {
@@ -24,7 +24,7 @@ class User {
     return searchingByName;
   }
 
-  searchFavoriteByIngredient(ids) {
+  searchFavoriteByIngredients(ids) {
     let searchingByIngredient = 
     this.favoriteRecipes.filter(recipe => {
       return recipe.ingredients.find(ingred => ids.includes(ingred.id));
@@ -33,4 +33,4 @@ class User {
   }
 
 }
-//module.exports = User;
+module.exports = User;
