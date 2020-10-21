@@ -145,16 +145,26 @@ describe('User class', () => {
 
       let result = userElle.searchFavoriteByName('apple pie');
 
-      expect(result).to.deep.equal(applePie);
+      expect(result).to.deep.equal([applePie]);
     })
 
-    it('should be able to search within favorite recipes by ingredient name', () => {
+    it('should be able to search within favorite recipes by ingredient id', () => {
       userElle.addRecipe('favoriteRecipes', applePie);
       userElle.addRecipe('favoriteRecipes', beefNoodle);
 
-      let result = userElle.searchFavoriteByIngredient(410);
+      let result = userElle.searchFavoriteByIngredients([410]);
 
       expect(result).to.deep.equal([applePie, beefNoodle]);
     })
+
+    it('should search within favorite recipes by multiple ingredients id', () => {
+      userElle.addRecipe('favoriteRecipes', applePie);
+      userElle.addRecipe('favoriteRecipes', beefNoodle);
+
+      let result = userElle.searchFavoriteByIngredients([302, 320]);
+
+      expect(result).to.deep.equal([applePie, beefNoodle]);
+    })
+
   })
 })
