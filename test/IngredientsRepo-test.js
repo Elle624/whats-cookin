@@ -1,14 +1,13 @@
 const chai = require("chai");
 const expect = chai.expect;
 const IngredientsRepo = require('../src/IngredientsRepo');
-const Ingredient = require('../src/Ingredient');
 
 describe('Ingredient class', () => {
   let ingredients, creamer, coffeeBeans;
   beforeEach( () => {
     ingredients = new IngredientsRepo();
-    creamer = {id: 624, name: 'creamer', cost: 240};
-    coffeeBeans = {id: 642, name: 'coffee beans', cost: 610}; 
+    creamer = {id: 624, name: 'creamer', estimatedCostInCents: 240};
+    coffeeBeans = {id: 642, name: 'coffee beans', estimatedCostInCents: 610}; 
   })
 
   describe('initialize', () => {
@@ -27,7 +26,7 @@ describe('Ingredient class', () => {
 
     it('should hold an ingredient', () => {
       ingredients = new IngredientsRepo([creamer]);
-      
+
       expect(ingredients.ingredientsArray).to.deep.equal([creamer]);
     })
 

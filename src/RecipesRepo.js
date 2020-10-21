@@ -1,9 +1,9 @@
-const Recipe = require('../src/Recipe');
-const IngredientsRepo = require('../src/IngredientsRepo');
-const apple = {id: 320, name: 'apple', cost: 40};
-const sugar = {id: 410, name: 'sugar', cost: 20};
-const beef = {id: 302, name: 'beef', cost: 100};
-const ingredientsRepo = new IngredientsRepo([apple, sugar, beef]);
+// const Recipe = require('../src/Recipe');
+// const IngredientsRepo = require('../src/IngredientsRepo');
+// const apple = {id: 320, name: 'apple', cost: 40};
+// const sugar = {id: 410, name: 'sugar', cost: 20};
+// const beef = {id: 302, name: 'beef', cost: 100};
+// const ingredientsRepo = new IngredientsRepo([apple, sugar, beef]);
 
 class RecipesRepo {
   constructor(recipes = []) {
@@ -54,4 +54,6 @@ class RecipesRepo {
     return searchingByIngredient;
   }
 }
-module.exports = RecipesRepo;
+
+//module.exports = RecipesRepo;
+
