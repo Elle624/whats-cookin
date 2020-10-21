@@ -16,6 +16,7 @@ Objective - Create dynamic classes for Ingredient, Recipe, Pantry, User
 - Create Pantry Class
 - Create User Class
 
+![]()
 
 ### Ieration 1 - CSS and Html Creation
 Objective - Create HTML, add classes to elements, add styling to styles.css
@@ -28,6 +29,8 @@ Objective - Create HTML, add classes to elements, add styling to styles.css
   - Recipe view page
   - Users Favorite Recipes Page 
   
+![]()
+  
 ### Iteration 2 - DOM Manipulation 
 Objective - Add functionality to buttons and be able to change pages based on buttons
 - Buttons in nav bar
@@ -37,6 +40,8 @@ Objective - Add functionality to buttons and be able to change pages based on bu
   - Users
   - My Pantry
 - Methods created for button functionality
+
+![]()
 
 ### Iteration 3 - TDD Creation
 - Tests created for:
