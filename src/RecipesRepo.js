@@ -54,4 +54,6 @@ class RecipesRepo {
     return searchingByIngredient;
   }
 }
+
 //module.exports = RecipesRepo;
+

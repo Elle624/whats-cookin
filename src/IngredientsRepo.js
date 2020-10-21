@@ -2,7 +2,7 @@
 
 class IngredientsRepo {
   constructor(ingredientDetail = []) {
-    this.ingredientsArray = ingredientDetail.map(detail => new Ingredient(detail.id, detail.name, detail.estimatedCostInCents));
+    this.ingredientsArray = ingredientDetail.map(detail => new Ingredient(detail.id, detail.name, detail.cost));
   }
 
   calculateRecipeCostByDollar(chosenRecipe) {
@@ -32,4 +32,5 @@ class IngredientsRepo {
   }
 
 }
+
 //module.exports = IngredientsRepo;

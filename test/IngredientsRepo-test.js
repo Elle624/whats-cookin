@@ -26,7 +26,7 @@ describe('Ingredient class', () => {
 
     it('should hold an ingredient', () => {
       ingredients = new IngredientsRepo([creamer]);
-     
+
       expect(ingredients.ingredientsArray).to.deep.equal([creamer]);
     })
 
