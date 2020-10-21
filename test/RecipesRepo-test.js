@@ -4,30 +4,28 @@ const RecipesRepo = require('../src/RecipesRepo');
 
 describe('Recipe class', () => {
   let recipes, applePie, beefNoodle;
-  let beefNoodle;
   beforeEach( () => {
     recipes = new RecipesRepo();
     applePie = {
       id: 1, 
       image: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
       ingredients: [
-
         {
           id: 320, 
           quantity: {
             amount: 6, 
             unit: 'unit'
-            }
+          }
         },
         {
           id: 410,
-          quantity:{
+          quantity: {
             amount: 7,
             unit: 'tbs'
           }
         }
       ],
-      instructions:[ 
+      instructions: [ 
         {instruction: 'step 1', number: 1}, 
         {instruction: 'step 2', number: 2},
         {instruction: 'step 3', number: 3}
@@ -40,17 +38,17 @@ describe('Recipe class', () => {
       image: 'https://spoonacular.com/recipeImages/595736-556x370.jpg',
       ingredients: [ 
         {
-        id: 302, 
-        quantity: {
-          amount: 10, 
-          unit: 'cup'
+          id: 302, 
+          quantity: {
+            amount: 10, 
+            unit: 'cup'
           }
         },
         {
-        id: 410,
-        quantity: {
-          amount: 3,
-          unit: 'tbs'
+          id: 410,
+          quantity: {
+            amount: 3,
+            unit: 'tbs'
           }
         }
       ],

@@ -31,9 +31,9 @@ describe('Ingredient class', () => {
     })
 
     it('should hold more than one ingredient', () => {
-      ingredients = new IngredientsRepo([creamer,coffeeBeans]);
+      ingredients = new IngredientsRepo([creamer, coffeeBeans]);
       
-      expect(ingredients.ingredientsArray).to.deep.equal([creamer,coffeeBeans]);
+      expect(ingredients.ingredientsArray).to.deep.equal([creamer, coffeeBeans]);
     })
   }) 
 
@@ -48,8 +48,8 @@ describe('Ingredient class', () => {
           {
             id: 624, 
             quantity: {
-            amount: 4, 
-            unit: 'tsp'
+              amount: 4, 
+              unit: 'tsp'
             }
           }
         ],
@@ -110,7 +110,7 @@ describe('Ingredient class', () => {
     })
 
     it('should return an id # when search by ingredient\'s name', () => {
-      ingredients = new IngredientsRepo([creamer,coffeeBeans]);
+      ingredients = new IngredientsRepo([creamer, coffeeBeans]);
       const id = ingredients.returnIds('creamer');
       
       expect(id).to.deep.equal([624]);
@@ -118,7 +118,7 @@ describe('Ingredient class', () => {
 
     it('should return all id numbers that includes the ingredients name', () => {
       const coffeeCreamer = {id: 420, name: 'coffee creamer', cost: 100};
-      ingredients = new IngredientsRepo([creamer,coffeeCreamer]);
+      ingredients = new IngredientsRepo([creamer, coffeeCreamer]);
 
       const ids = ingredients.returnIds('creamer');
 
@@ -126,14 +126,14 @@ describe('Ingredient class', () => {
     })
 
     it('should return undefined when ingredient\'s name is not found', () => {
-      ingredients = new IngredientsRepo([creamer,coffeeBeans]);
+      ingredients = new IngredientsRepo([creamer, coffeeBeans]);
       const id = ingredients.returnIds('milk');
 
       expect(id).to.deep.equal([]);
     })
 
     it('return the ingredients name matched with the same id', () => {
-      ingredients = new IngredientsRepo([creamer,coffeeBeans]);
+      ingredients = new IngredientsRepo([creamer, coffeeBeans]);
       const name = ingredients.returnName(coffeeBeans);
 
       expect(name).to.equal('coffee beans');

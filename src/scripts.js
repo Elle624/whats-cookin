@@ -42,10 +42,10 @@ function createTagsOption() {
     recipe.tags.forEach((tag) => {
       if (!tagsList.includes(tag)) {
         tagsList.push(tag);
-      };
-    });
+      }
+    })
     return tagsList;
-  }, []);
+  }, [])
 }
 
 function displayTagsOption() {
@@ -152,7 +152,7 @@ function displayPantry() {
     let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient);
     userIngredients.innerHTML += 
     `<article class="pantry-item"> ${result.name} : ${ingred.amount}</article>`
-  });
+  })
 }
 
 function filterByTags(event) {
@@ -170,7 +170,7 @@ function filterByTags(event) {
 
 function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
-  if(pageChecking === 'all') {
+  if (pageChecking === 'all') {
     const searchResult = recipesRepo.searchByIngredients(ingredientIds);
     createRecipeCardsHTML({recipesArray: searchResult});
   } else if (pageChecking === 'fav') {

@@ -14,23 +14,23 @@ describe('Recipe class', () => {
         quantity: {
           amount: 6, 
           unit: 'unit'
-          }
-        },
-        {
+        }
+      },
+      {
         id: 410,
-        quantity:{
+        quantity: {
           amount: 7,
           unit: 'tbs'
-          }
-        }],
-        [
+        }
+      }],
+      [
         {instruction: 'step 1'}, 
         {instruction: 'step 2'},
         {instruction: 'step 3'}
-        ],
-        'apple pie',
-        ['sweet', 'desert']
-        );
+      ],
+      'apple pie',
+      ['sweet', 'desert']
+    );
     beefNoodle = new Recipe(
       2, 
       'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
@@ -39,7 +39,7 @@ describe('Recipe class', () => {
         quantity: {
           amount: 10, 
           unit: 'cup'
-          }
+        }
       },
       {
         id: 410,
@@ -80,7 +80,7 @@ describe('Recipe class', () => {
         {id: 410, quantity: {
           amount: 7, unit: 'tbs'}
         }
-        ]);
+      ]);
     })
 
     it('should have an array of instructions', () => {

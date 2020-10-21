@@ -30,14 +30,14 @@ class RecipesRepo {
     const recipeIngredients = chosenRecipe.ingredients.map(recipeIng => {
       const ingName = ingredientsRepo.returnName(recipeIng);
       return {name: ingName, amount: recipeIng.quantity.amount, unit: recipeIng.quantity.unit};
-    });
+    })
     return recipeIngredients;
   }
 
   returnInstructions(chosenRecipe) {
     let steps = chosenRecipe.instructions.map(({number, instruction}) => {
       return {number, instruction};
-    });
+    })
     return steps;
   }
 
@@ -50,7 +50,7 @@ class RecipesRepo {
     let searchingByIngredient = 
     this.recipesArray.filter(recipe => {
       return recipe.ingredients.find(ing => ids.includes(ing.id));
-    });
+    })
     return searchingByIngredient;
   }
 }

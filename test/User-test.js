@@ -26,11 +26,11 @@ describe('User class', () => {
           quantity: {
             amount: 6, 
             unit: 'unit'
-            }
+          }
         },
         {
           id: 410,
-          quantity:{
+          quantity: {
             amount: 7,
             unit: 'tbs'
           }
@@ -53,7 +53,7 @@ describe('User class', () => {
           quantity: {
             amount: 10, 
             unit: 'cup'
-            }
+          }
         },
         {
           id: 410,
@@ -91,7 +91,7 @@ describe('User class', () => {
     })
 
     it('should have a pantry', () => {
-      expect(userElle.pantry).to.deep.equal({pantry:[
+      expect(userElle.pantry).to.deep.equal({pantry: [
         {ingredient: 320, amount: 6}, 
         {ingredient: 624, amount: 10}, 
         {ingredient: 620, amount: 8}

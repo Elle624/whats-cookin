@@ -3,7 +3,7 @@ const expect = chai.expect;
 const Pantry = require('../src/Pantry');
 
 describe('Pantry class', () => {
-  let pantry;
+  let pantry, ellePantry;
   beforeEach(() => {
     pantry = new Pantry();
     ellePantry = new Pantry([
