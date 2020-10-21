@@ -14,7 +14,7 @@ class Pantry {
     return result;
   }
 
-  reviewMissingIngredients(shortIngredients) {
+  reviewMissingIngredients(shortIngredients = []) {
     let newNum;
     let newArrange = shortIngredients.map(shortIng => {
       let findResult = this.pantry.find(pantryIng => pantryIng.ingredient === shortIng.id);
@@ -41,4 +41,4 @@ class Pantry {
   }
 
 }
-//module.exports = Pantry;
+module.exports = Pantry;

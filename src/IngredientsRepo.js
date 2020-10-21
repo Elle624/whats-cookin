@@ -1,8 +1,8 @@
-//const Ingredient = require("./Ingredient");
+const Ingredient = require("./Ingredient");
 
 class IngredientsRepo {
   constructor(ingredientDetail = []) {
-    this.ingredientsArray = ingredientDetail.map(detail => new Ingredient(detail.id, detail.name, detail.estimatedCostInCents));
+    this.ingredientsArray = ingredientDetail.map(detail => new Ingredient(detail.id, detail.name, detail.cost));
   }
 
   calculateRecipeCostByDollar(chosenRecipe) {
@@ -23,7 +23,7 @@ class IngredientsRepo {
   returnIds(ingredientName) {
     ingredientName = ingredientName.toLowerCase();
     let ingredients = this.ingredientsArray.filter(ingre => ingre.name.includes(ingredientName));
-    return ingredients ? ingredients.map(ing => ing.id) : undefined;
+    return ingredients.map(ing => ing.id);
   } 
 
   returnName(recipeIngredient) {
@@ -32,4 +32,4 @@ class IngredientsRepo {
   }
 
 }
-//module.exports = IngredientRepo;
+module.exports = IngredientsRepo;
