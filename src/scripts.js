@@ -166,10 +166,10 @@ function filterByTags(event) {
 function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
   if(pageChecking === 'all') {
-    const searchResult = recipesRepo.searchByIngredient(ingredientIds);
+    const searchResult = recipesRepo.searchByIngredients(ingredientIds);
     displayRecipes({recipesArray: searchResult});
   } else if (pageChecking === 'fav') {
-    const searchByIng = user1.searchFavoriteByIngredient(ingredientIds);
+    const searchByIng = user1.searchFavoriteByIngredients(ingredientIds);
     const searchByName = user1.searchFavoriteByName(searchInput.value)
     ingredientIds.length > 0? 
     generateRecipeCardsHTML(searchByIng) : generateRecipeCardsHTML(searchByName)
