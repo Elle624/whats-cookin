@@ -1,11 +1,9 @@
 const chai = require("chai");
 const expect = chai.expect;
 const RecipesRepo = require('../src/RecipesRepo');
-//const Recipe = require('../src/Recipe');
 
 describe('Recipe class', () => {
-  let recipes;
-  let applePie;
+  let recipes, applePie, beefNoodle;
   let beefNoodle;
   beforeEach( () => {
     recipes = new RecipesRepo();
@@ -13,6 +11,7 @@ describe('Recipe class', () => {
       id: 1, 
       image: 'https://spoonacular.com/recipeImages/595736-556x370.jpg', 
       ingredients: [
+
         {
           id: 320, 
           quantity: {
@@ -56,13 +55,14 @@ describe('Recipe class', () => {
         }
       ],
       instructions: [
-        {instruction: 'step 1'}, 
-        {instruction: 'step 2'},
-        {instruction: 'step 3'}
+        {instruction: 'step 1', number: 1}, 
+        {instruction: 'step 2', number: 2},
+        {instruction: 'step 3', number: 3}
       ],
       name: 'beef noodle',
       tags: ['flour made', 'main dish', 'hot dish'],
     };
+
   })
 
   describe('Initialize', () => {
@@ -171,5 +171,5 @@ describe('Recipe class', () => {
       expect(result).to.deep.equal([applePie, beefNoodle]);
     })
   })
-  
+
 })

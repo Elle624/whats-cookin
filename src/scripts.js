@@ -1,42 +1,28 @@
-//const User = require('../src/User');
-
-const recipesSectionTitle = document.querySelector('.all-cards h1');
-const recipesSection = document.querySelector('.recipe-page-view');
-const tagsSection = document.querySelector('.tags');
-const favRecipesBtn = document.querySelector('.fav-recipes-btn');
 const mainPage = document.querySelector('.main-page');
-const mainPageWithoutFilter = document.querySelector('.main-page-without-filter');
-const homeBtn = document.querySelector('.home-btn');
-const toCookBtn = document.querySelector('.to-cook-btn');
-const usersBtn = document.querySelector('.users-btn');
 const filterSection = document.querySelector('.filter');
-const myPantryBtn = document.querySelector('.pantry-btn');
+const searchBtn = document.querySelector('.search-btn');
+const searchInput = document.querySelector('input');
+const tagsSection = document.querySelector('.tags');
+const recipesSection = document.querySelector('.recipe-page-view');
+const recipesSectionTitle = document.querySelector('.all-cards h1');
+const chosenRecipeDisplay = document.querySelector('.chosen-recipe');
+const mainPageWithoutFilter = document.querySelector('.main-page-without-filter');
 const myPantryPage = document.querySelector('.pantry-page-view');
 const userName = document.querySelector('.user-name');
 const userIngredients = document.querySelector('.user-ingredients');
-const searchInput = document.querySelector('input');
-const searchBtn = document.querySelector('.search-btn');
-const recipesToCookDisplay = document.querySelector('.view-recipes-to-cook');
-const favRecipesDisplay = document.querySelector('.view-fav-recipes');
-const chosenRecipeDisplay = document.querySelector('.chosen-recipe');
 let pageChecking = 'all';
 
-
-homeBtn.addEventListener('click', returnHome);
-usersBtn.addEventListener('click', changeUser);
-favRecipesBtn.addEventListener('click', viewFavoriteRecipes);
-toCookBtn.addEventListener('click', viewRecipesToCook);
-myPantryBtn.addEventListener('click', viewMyPantry);
+//eventlisteners
+window.addEventListener('click', displayAPage);
 searchBtn.addEventListener('click', searchByIngredient);
 filterSection.addEventListener('click', filterByTags);
 recipesSection.addEventListener('click', updateRecipesSection);
-
 
 const ingredientsRepo = new IngredientsRepo(ingredientsData);
 const recipesRepo = new RecipesRepo(recipeData);
 let user1 = new User(usersData[0]);
 
-function displayRecipes(recipes) {
+function createRecipeCardsHTML(recipes) {
   recipesSection.innerHTML = ''
   recipes.recipesArray.forEach(recipeDetail => {
     recipesSection.innerHTML +=
@@ -56,10 +42,10 @@ function createTagsOption() {
     recipe.tags.forEach((tag) => {
       if (!tagsList.includes(tag)) {
         tagsList.push(tag);
-      }
-    })
+      };
+    });
     return tagsList;
-  }, [])
+  }, []);
 }
 
 function displayTagsOption() {
@@ -72,8 +58,22 @@ function displayTagsOption() {
 
 function displayMainPage() {
   displayTagsOption();
-  displayRecipes(recipesRepo);
-  recipesSectionTitle.innerText = `Wecome to what\'s cookin ${user1.name}!`;
+  createRecipeCardsHTML(recipesRepo);
+  recipesSectionTitle.innerText = `Wecome to What's Cookin ${user1.name}!`;
+}
+
+function displayAPage() {
+  if (event.target.className.includes('home')) {
+    returnHome();
+  } else if (event.target.className.includes('user')) {
+    changeUser();
+  } else if (event.target.className.includes('fav-recipes')) {
+    viewFavoriteRecipes();
+  } else if (event.target.className.includes('to-cook')) {
+    viewRecipesToCook();
+  } else if (event.target.className.includes('pantry')) {
+    viewMyPantry();
+  }
 }
 
 function generateRondomNum(list) {
@@ -96,53 +96,58 @@ function changeHiddenProperty(elements) {
   })
 }
 
-function generateRecipeCardsHTML(recipes, title = '') {
+function showRecipeCardsSection() {
+  let homeSection = [{name: mainPage}, {name: recipesSection}, {name: myPantryPage, addHidden: true}, {name: chosenRecipeDisplay, addHidden: true}];
+  changeHiddenProperty(homeSection);
+}
+
+function returnHome() {
+  pageChecking = 'all';
+  showRecipeCardsSection();
+  createRecipeCardsHTML(recipesRepo);
+  recipesSectionTitle.innerText = `Wecome to What's Cookin ${user1.name}!`;
+}
+
+function generateUserRecipeCardsHTML(recipes, title = '') {
   recipesSectionTitle.innerText = title;
   recipesSection.innerHTML = '';
   recipes.forEach(recipe => {
-  recipesSection.innerHTML += 
+    recipesSection.innerHTML += 
     `
     <article class="recipe-card">
       <img src=${recipe.image}>
-      <h1 class="recipe-name">${recipe.name}</h1>
+      <h1 class="recipe-name" style="cursor: pointer">${recipe.name}</h1>
     </article>
     `
   })  
 }
 
-function showRecipeCards() {
-  let homeSection = [{name: mainPage}, {name: recipesSection}, {name: myPantryPage, addHidden: true} , {name: chosenRecipeDisplay, addHidden: true}];
-  changeHiddenProperty(homeSection);
-}
-
-function returnHome() {
-  showRecipeCards()
-  displayRecipes(recipesRepo);
-  recipesSectionTitle.innerText = `Wecome to what\'s cookin ${user1.name}!`;
-  pageChecking = 'all';
-}
-
 function viewFavoriteRecipes() { 
-  showRecipeCards();
-  generateRecipeCardsHTML(user1.favoriteRecipes, 'My Favorites');
   pageChecking = 'fav';
+  showRecipeCardsSection();
+  generateUserRecipeCardsHTML(user1.favoriteRecipes, 'My Favorites');
 }
 
 function viewRecipesToCook() {
-  showRecipeCards();
-  generateRecipeCardsHTML(user1.recipesToCook, 'Recipes to Cook');
   pageChecking = 'cook';
+  showRecipeCardsSection();
+  generateUserRecipeCardsHTML(user1.recipesToCook, 'Recipes to Cook');
+}
+
+function hideRecipeCardsSection(moreSections = null) {
+  let elements = [{name: mainPage, addHidden: true}, {name: mainPageWithoutFilter}];
+  moreSections.forEach(section => elements.push(section));
+  changeHiddenProperty(elements);
 }
 
 function viewMyPantry() {
-  changeHiddenProperty([{name: mainPage, addHidden: true}, {name: mainPageWithoutFilter}, {name: myPantryPage}, {name: chosenRecipeDisplay, addHidden: true}]);
+  hideRecipeCardsSection([{name: myPantryPage}, {name: chosenRecipeDisplay, addHidden: true}]);
   displayPantry();
 }
 
 function displayPantry() {
   userIngredients.innerHTML = '';
-  userName.innerHTML = 
-  `<h1>${user1.name}'s Pantry</h1>`;
+  userName.innerHTML = `<h1>${user1.name}'s Pantry</h1>`;
   user1.pantry.pantry.forEach(ingred => {
     let result = ingredientsRepo.ingredientsArray.find(ing => ing.id === ingred.ingredient);
     userIngredients.innerHTML += 
@@ -151,15 +156,15 @@ function displayPantry() {
 }
 
 function filterByTags(event) {
-  if(pageChecking === 'all') {
+  if (pageChecking === 'all') {
     let allRecipesFiltered = recipesRepo.searchByTag(event.target.innerText);
-    displayRecipes({recipesArray: allRecipesFiltered});
-  } else if(pageChecking === 'fav') {
+    createRecipeCardsHTML({recipesArray: allRecipesFiltered});
+  } else if (pageChecking === 'fav') {
     let favRecipesFiltered = user1.filterRecipesByTag('favoriteRecipes', event.target.innerText);
-    generateRecipeCardsHTML(favRecipesFiltered);
-  } else if(pageChecking === 'cook') {
+    generateUserRecipeCardsHTML(favRecipesFiltered);
+  } else if (pageChecking === 'cook') {
     let toCookRecipesFiltered = user1.filterRecipesByTag('recipesToCook', event.target.innerText);
-    generateRecipeCardsHTML(toCookRecipesFiltered);
+    generateUserRecipeCardsHTML(toCookRecipesFiltered);
   }
 }
 
@@ -167,14 +172,14 @@ function searchByIngredient() {
   const ingredientIds = ingredientsRepo.returnIds(searchInput.value);
   if(pageChecking === 'all') {
     const searchResult = recipesRepo.searchByIngredients(ingredientIds);
-    displayRecipes({recipesArray: searchResult});
+    createRecipeCardsHTML({recipesArray: searchResult});
   } else if (pageChecking === 'fav') {
     const searchByIng = user1.searchFavoriteByIngredients(ingredientIds);
     const searchByName = user1.searchFavoriteByName(searchInput.value)
-    ingredientIds.length > 0? 
-    generateRecipeCardsHTML(searchByIng) : generateRecipeCardsHTML(searchByName)
+    ingredientIds.length > 0 ? 
+      generateUserRecipeCardsHTML(searchByIng) : generateUserRecipeCardsHTML(searchByName)
   }
-    searchInput.value = '';
+  searchInput.value = '';
 }
 
 function updateRecipesSection() {
@@ -184,35 +189,27 @@ function updateRecipesSection() {
     const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
     user1.addRecipe('recipesToCook', recipe); 
     user1.pantry.removeIngredients(recipe);
-  } else if(event.target.className.includes('fav')) {
+  } else if (event.target.className.includes('fav')) {
     const recipe = recipesRepo.returnRecipeById(parseInt(event.target.id));
     user1.addRecipe('favoriteRecipes', recipe); 
   }
 }
 
-function hideRecipeCards() {
-  let elements = [{name: mainPage, addHidden: true}, {name: mainPageWithoutFilter}];
-  changeHiddenProperty(elements);
-}
-
 function displayChosenRecipe() {
-  hideRecipeCards();
-  changeHiddenProperty([{name: myPantryPage, addHidden: true}]);
+  hideRecipeCardsSection([{name: chosenRecipeDisplay}, {name: myPantryPage, addHidden: true}]);
   const chosenRecipe = recipesRepo.returnCurrentRecipe(event.target.innerText);
-  chosenRecipeDisplay.innerHTML = ''
-  changeHiddenProperty([{name: chosenRecipeDisplay}]);
   const recipeIngredients = recipesRepo.returnIngredients(chosenRecipe);
   const steps = recipesRepo.returnInstructions(chosenRecipe);
   const totalCost = ingredientsRepo.calculateRecipeCostByDollar(chosenRecipe);
   const shortList = user1.pantry.compareIngredients(chosenRecipe);
   const displayMissingIng = user1.pantry.reviewMissingIngredients(shortList);
-  
-  chosenRecipeDisplay.innerHTML += 
+  chosenRecipeDisplay.innerHTML = ''
+  chosenRecipeDisplay.innerHTML +=
     `<section class="chosen-recipe">
       <div class="expanded-recipe">
         <img src="${chosenRecipe.image}">
         <section class="expanded-title-cost">
-          <h1>${chosenRecipe.name}</h1>
+          <h1 style="cursor: pointer">${chosenRecipe.name}</h1>
           <h2>Total cost: $${totalCost}</h2>
           <h2>${chosenRecipe.tags}</h2>
         </section>
@@ -226,7 +223,7 @@ function displayChosenRecipe() {
         <ul>${listRecipeIngredients(recipeIngredients)}</ul>
       </section>
       <section class="expanded-recipe-instructions">
-        <h1>Instructions: </h1> 
+        <h1>Instructions: </h1>
         ${listInstructions(steps)}</section>
     </section>`
 }
