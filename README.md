@@ -12,7 +12,7 @@
 ## Overall Objective:
  When the page loads the we should see the home page with all available recipes displayed. to the left should be a section of tags the user can use to navigate and filter the recipes. The navigation bar at the top should hold the appropriate buttons to navigate throughout the application. User should be able to add recipes to their "favorites" page and their "to cook" page by using the buttons provided on each recipe card. Users should also be able to view all of their ingredients by clicking the "my pantry" button.
 
-### Iteration 0 - Class Creation
+### Iteration 0 - Class/TDD Creation
 Objectives
 - Create Ingredient Class
 - Create Recipe Class
@@ -59,17 +59,6 @@ Objective - Add functionality to buttons and be able to change pages based on bu
 
 ![](https://user-images.githubusercontent.com/59493784/96799446-62f7fd00-13c0-11eb-9907-4c0eed60aec6.gi)
 
-### Iteration 3 - TDD Creation
-- Tests created for:
-  - recipesRepo class
-  - Ingredients class
-  - Pantry class
-  - User class
-- Methods created to past tests in:
-  - recipesRepo-test
-  - Ingredients-test
-  - Pantry-test
-  - User-test
   
 
   
