@@ -71,10 +71,5 @@ Objective - Add functionality to buttons and be able to change pages based on bu
   - Pantry-test
   - User-test
   
-  Create dynamic classes for Ingredient, Recipe, Pantry, User
-- Create Ingredient Class
-- Create Recipe Class
-- Create Pantry Class
-- Create User Class
 
   
