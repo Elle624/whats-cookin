@@ -2,7 +2,7 @@
 
 ### Contributors
 - Peyton Jones [Github Profile](https://github.com/Peytonjo)
-- Elle Li [Github Profile](https://github.com/Elle624)
+- Elle Li [Github Profile](https://github.com/yiranli624)
 
 ### Set Up
 * Fork the repo and clone down into the terminal.
